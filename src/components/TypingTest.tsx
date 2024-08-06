@@ -12,14 +12,13 @@ const TypingTest = () => {
 
   useEffect(() => {
     const fetchStory = async () => {
-        try {
-          const response = await axios.get('/api/stories');
-          setStory(response.data.story);
-        } catch (error) {
-          console.error('Error fetching story:', error);
-        }
-      };
-      
+      try {
+        const response = await axios.get('https://stories.studex.tech/api/stories?random=true');
+        setStory(response.data.story);
+      } catch (error) {
+        console.error('Error fetching story:', error);
+      }
+    };
 
     fetchStory();
   }, []);
@@ -43,11 +42,25 @@ const TypingTest = () => {
     setUserInput(event.target.value);
   };
 
+  const getTextColor = (index: number) => {
+    const userWords = userInput.trim().split(/\s+/);
+    const storyWords = story.trim().split(/\s+/);
+    if (index >= userWords.length) return 'purple'; // Purple if no user input yet
+    return userWords[index] === storyWords[index] ? 'green' : 'red';
+  };
+
   return (
     <div className="container">
       <h1>Typing Test</h1>
       <div className="story-container">
-        <p>{story}</p>
+        {story.split(/\s+/).map((word, index) => (
+          <span
+            key={index}
+            className={`word ${userInput.split(/\s+/)[index] ? getTextColor(index) : ''}`}
+          >
+            {word}{' '}
+          </span>
+        ))}
       </div>
       <textarea
         value={userInput}
@@ -71,6 +84,11 @@ const TypingTest = () => {
           padding: 10px;
           margin-bottom: 10px;
           background-color: #f9f9f9;
+          white-space: pre-wrap;
+        }
+        .word {
+          display: inline-block;
+          margin-right: 4px;
         }
         textarea {
           width: 100%;
@@ -78,9 +96,19 @@ const TypingTest = () => {
           font-size: 16px;
           border: 1px solid #ddd;
           border-radius: 4px;
+          margin-top: 10px;
         }
         .results {
           margin-top: 10px;
+        }
+        .purple {
+          color: purple;
+        }
+        .green {
+          color: green;
+        }
+        .red {
+          color: red;
         }
       `}</style>
     </div>
