@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import '../styles/globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -43,9 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta property="og:url" content="https://streaktype.studex.tech" />
       <link rel="canonical" href="https://streaktype.studex.tech" />
     </Head>
-  < Navbar />
+
     <ToastContainer />
-    <Component {...pageProps} /><Footer />
+    <Component {...pageProps} />
     </>
   );
 }

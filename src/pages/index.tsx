@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Head from 'next/head';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const Home = () => {
   const router = useRouter();
@@ -14,6 +16,8 @@ const Home = () => {
       <Head>
         <title>StreakType | Home</title>
       </Head>
+      < Navbar />
+    
       <div className={styles.container}>
         <main className={styles.main}>
           <h1 className={styles.title}>
@@ -40,6 +44,7 @@ const Home = () => {
           <br /><br />
         </main>
       </div>
+      < Footer />
     </>
   );
 };

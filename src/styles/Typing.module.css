@@ -1,47 +1,150 @@
+/* Container styling */
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
+    background: linear-gradient(89.9deg, rgb(233, 246, 249) 0.1%, rgb(250, 245, 245) 47.9%, rgb(247, 247, 239) 100.2%);background: radial-gradient(circle at 12.8% 28%, rgb(239, 228, 247) 0%, rgb(216, 243, 249) 90%); 
+    overflow: hidden;
+    position: relative;
   }
   
-  .startContainer,
-  .typingContainer {
+  /* Main content styling */
+  .main {
     text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
   }
   
+
+    .title {
+      margin-top: 25%;
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 0;
+      line-height: 1;
+      background: linear-gradient(to right, #000000, #272727, #484848);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientAnimation 5s ease infinite;
+    }
+    
+    .stitle {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0;
+      line-height: 1;
+      background: linear-gradient(to right, #4f46e5, #7e22ce, #ec4899);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientAnimation 2s ease infinite;
+    }
+    
+    
+    
+    
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  
+  .description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #454545;
+  }
+  
+
+  
+  /* Modal styling */
+  .modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+
   .inputField {
     margin-top: 10px;
     padding: 10px;
     font-size: 16px;
     width: 100%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   
-  .button {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .typingContainer {
+
+
+  .tryButton {
+    --green: #6600ff;
+    font-size: 25px;
+    padding: 0.7em 2.7em;
+    letter-spacing: 0.06em;
     position: relative;
+    font-family: inherit;
+    border-radius: 0.6em;
+    overflow: hidden;
+    transition: all 0.3s;
+    line-height: 1.4em;
+    border: 2px solid var(--green);
+    background: linear-gradient(to right, rgba(149, 30, 240, 0.1) 1%, transparent 40%,transparent 60% , rgba(85, 0, 255, 0.1) 100%);
+    color: var(--green);
+    box-shadow: inset 0 0 10px rgba(132, 0, 255, 0.4), 0 0 9px 3px rgba(134, 39, 212, 0.1);
   }
   
-  .timer {
-    font-size: 24px;
-    margin-bottom: 20px;
+  .tryButton:hover {
+    color: #8147ff;
+    box-shadow: inset 0 0 10px rgba(216, 162, 255, 0.6), 0 0 9px 3px rgba(57, 2, 135, 0.2);
   }
   
-  .story {
-    font-size: 24px;
-    white-space: pre-wrap;
-    margin-bottom: 20px;
+  .tryButton:before {
+    content: "";
+    position: absolute;
+    left: -4em;
+    width: 4em;
+    height: 100%;
+    top: 0;
+    transition: transform .4s ease-in-out;
+    background: linear-gradient(to right, transparent 1%, rgba(131, 26, 236, 0.1) 40%,rgba(78, 19, 204, 0.1) 60% , transparent 100%);
   }
   
-  .stats {
-    margin-top: 20px;
+  .tryButton:hover:before {
+    transform: translateX(15em);
   }
   
