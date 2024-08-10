@@ -15,6 +15,7 @@ const TypingTest = () => {
 
   useEffect(() => {
     const fetchStory = async () => {
+      if (storyRef.current) return; // Prevent fetching if story is already fetched
       try {
         const response = await axios.get('https://stories.studex.tech/api/stories?random=true');
         storyRef.current = response.data.story; // Save story in ref
@@ -35,8 +36,10 @@ const TypingTest = () => {
       setWpm(wordsTyped / elapsedTime);
 
       const story = storyRef.current;
-      const correctWords = userInput.trim().split(/\s+/).filter((word, index) => word === story.split(/\s+/)[index]).length;
-      setAccuracy((correctWords / story.split(/\s+/).length) * 100);
+      if (story) {
+        const correctWords = userInput.trim().split(/\s+/).filter((word, index) => word === story.split(/\s+/)[index]).length;
+        setAccuracy((correctWords / story.split(/\s+/).length) * 100);
+      }
     }
   }, [userInput, isTyping, startTime]);
 
@@ -50,7 +53,7 @@ const TypingTest = () => {
 
   const getTextColor = (index: number) => {
     const userWords = userInput.trim().split(/\s+/);
-    const storyWords = storyRef.current.trim().split(/\s+/);
+    const storyWords = storyRef.current.split(/\s+/);
     if (index >= userWords.length) return 'purple'; // Purple if no user input yet
     return userWords[index] === storyWords[index] ? 'green' : 'red';
   };
@@ -64,7 +67,6 @@ const TypingTest = () => {
         inputElement?.focus(); // Focus on the hidden input field
       }
     };
-    
 
     const preventCopyPaste = (e: KeyboardEvent) => {
       if (e.ctrlKey && (e.key === 'c' || e.key === 'v')) {
@@ -84,7 +86,6 @@ const TypingTest = () => {
         inputElement?.blur(); // Remove focus from the hidden input field
       }
     };
-    
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keydown', preventCopyPaste);
@@ -110,7 +111,6 @@ const TypingTest = () => {
       (elem as any).msRequestFullscreen();
     }
   };
-  
 
   return (
     <div className={`container ${testStarted ? 'test-started' : ''}`}>

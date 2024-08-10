@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import styles from '../styles/TypingTest.module.css';
+import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
