@@ -1,4 +1,3 @@
-// components/TypingTest.tsx
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,6 +8,7 @@ const TypingTest = () => {
   const [wpm, setWpm] = useState<number>(0);
   const [accuracy, setAccuracy] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [testStarted, setTestStarted] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchStory = async () => {
@@ -34,7 +34,7 @@ const TypingTest = () => {
     }
   }, [userInput, isTyping]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isTyping) {
       setIsTyping(true);
       setStartTime(Date.now());
@@ -49,8 +49,60 @@ const TypingTest = () => {
     return userWords[index] === storyWords[index] ? 'green' : 'red';
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.shiftKey && e.key === 'Enter') {
+        setTestStarted(true);
+        enterFullscreen();
+        document.querySelector('input.hidden-input')?.focus(); // Focus on the hidden input field
+      }
+    };
+
+    const preventCopyPaste = (e: KeyboardEvent) => {
+      if (e.ctrlKey && (e.key === 'c' || e.key === 'v')) {
+        e.preventDefault();
+      }
+    };
+
+    const preventContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+    };
+
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        // Exit fullscreen mode if fullscreen is exited
+        setTestStarted(false);
+        document.querySelector('input.hidden-input')?.blur(); // Remove focus from the hidden input field
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', preventCopyPaste);
+    window.addEventListener('contextmenu', preventContextMenu);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', preventCopyPaste);
+      window.removeEventListener('contextmenu', preventContextMenu);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const enterFullscreen = () => {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+      document.documentElement.msRequestFullscreen();
+    }
+  };
+
   return (
-    <div className="container">
+    <div className={`container ${testStarted ? 'test-started' : ''}`}>
       <h1>Typing Test</h1>
       <div className="story-container">
         {story.split(/\s+/).map((word, index) => (
@@ -62,12 +114,14 @@ const TypingTest = () => {
           </span>
         ))}
       </div>
-      <textarea
+      <input
+        type="text"
         value={userInput}
         onChange={handleChange}
-        rows={10}
-        cols={80}
+        autoFocus
         placeholder="Start typing..."
+        className="hidden-input"
+        disabled={!testStarted}
       />
       <div className="results">
         <p>Words Per Minute (WPM): {wpm.toFixed(2)}</p>
@@ -75,40 +129,46 @@ const TypingTest = () => {
       </div>
       <style jsx>{`
         .container {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: #333;
+          color: #f9f9f9;
+          overflow: hidden;
         }
         .story-container {
-          border: 1px solid #ddd;
+          border: 1px solid #555;
           padding: 10px;
           margin-bottom: 10px;
-          background-color: #f9f9f9;
+          background-color: #222;
           white-space: pre-wrap;
+          overflow-y: auto;
+          max-height: 80vh; /* Limit height to fit within viewport */
+          width: 90vw; /* Adjust width as needed */
         }
         .word {
           display: inline-block;
           margin-right: 4px;
         }
-        textarea {
-          width: 100%;
-          padding: 10px;
-          font-size: 16px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          margin-top: 10px;
+        input.hidden-input {
+          position: absolute;
+          top: -1000px; /* Hide the input field */
+          left: -1000px;
         }
         .results {
           margin-top: 10px;
         }
         .purple {
-          color: purple;
+          color: #aaa;
         }
         .green {
-          color: green;
+          color: #0f0;
         }
         .red {
-          color: red;
+          color: #f00;
         }
       `}</style>
     </div>

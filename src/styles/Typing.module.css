@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .startContainer,
+  .typingContainer {
+    text-align: center;
+  }
+  
+  .inputField {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  .button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .typingContainer {
+    position: relative;
+  }
+  
+  .timer {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .story {
+    font-size: 24px;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+  }
+  
+  .stats {
+    margin-top: 20px;
+  }
+  
