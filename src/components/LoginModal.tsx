@@ -18,7 +18,7 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleGitHubSignIn = () => {
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`;
+    window.location.href = `https://streaktype.studex.tech/`;
   };
 
   const handleGoogleSuccess = (response: CredentialResponse) => {
