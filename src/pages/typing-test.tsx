@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Modal from '../components/EndModal'; // Import the Modal component
 
 const TypingTest = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const TypingTest = () => {
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
   const [timer, setTimer] = useState(60);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -86,6 +88,7 @@ const TypingTest = () => {
         if (remaining <= 0) {
           clearInterval(intervalId);
           updateWpm(userInput);
+          if (!showModal) setShowModal(true); // Show modal when the timer runs out
         } else {
           intervalId = requestAnimationFrame(updateTimer);
         }
@@ -103,7 +106,13 @@ const TypingTest = () => {
         cancelAnimationFrame(intervalId);
       }
     };
-  }, [startTime, userInput, difficulty]);
+  }, [startTime, userInput, difficulty, showModal]);
+
+  useEffect(() => {
+    if (userInput.trim() === story.trim() && !showModal) {
+      setShowModal(true); // Show modal when the story is fully typed
+    }
+  }, [userInput, story, showModal]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -170,10 +179,22 @@ const TypingTest = () => {
     }
   };
   
-
   useEffect(() => {
     enterFullscreen();
   }, []);
+
+  const handleRetry = () => {
+    setUserInput('');
+    setStartTime(null);
+    setWpm(0);
+    setAccuracy(100);
+    setShowModal(false);
+    inputRef.current?.focus(); // Refocus input field
+  };
+
+  const handleExit = () => {
+    router.push('/');
+  };
 
   return (
     <div className={styles.fullscreenContainer}>
@@ -203,8 +224,17 @@ const TypingTest = () => {
           </div>
         </div>
         <button className={styles.exitButton} onClick={() => router.push('/')}>
-         Exit
+          Exit
         </button>
+        {showModal && name && (
+          <Modal
+            name={name as string}
+            wpm={wpm}
+            accuracy={accuracy}
+            onRetry={handleRetry}
+            onExit={handleExit}
+          />
+        )}
       </div>
     </div>
   );

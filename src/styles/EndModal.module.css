@@ -1,0 +1,101 @@
+/* Container for the modal overlay */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+  }
+  
+  /* Container for modal content */
+  .modalContent {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative; /* Allows positioning of the close button */
+  }
+  
+  /* Modal title styling */
+  .modalContent h2 {
+    margin-top: 0;
+    color: #333333;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  /* Modal text styling */
+  .modalContent p {
+    margin: 12px 0;
+    color: #666666;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Container for modal actions (buttons) */
+  .modalActions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  /* Styling for primary and secondary buttons */
+  .modalActions button {
+    background-color: #1e88e5;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  /* Primary button hover effect */
+  .modalActions button:hover {
+    background-color: #1565c0;
+    transform: scale(1.05);
+  }
+  
+  /* Secondary button styling */
+  .modalActions button:nth-child(2) {
+    background-color: #e0e0e0;
+    color: #333333;
+  }
+  
+  /* Secondary button hover effect */
+  .modalActions button:nth-child(2):hover {
+    background-color: #bdbdbd;
+    transform: scale(1.05);
+  }
+  
+  /* Close button styling */
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: #666666;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .closeButton:hover {
+    color: #333333;
+  }
+  
