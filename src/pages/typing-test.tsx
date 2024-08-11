@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const TypingTest = () => {
   const router = useRouter();
@@ -158,12 +157,31 @@ const TypingTest = () => {
     });
   };
 
+  const enterFullscreen = () => {
+    const element = document.documentElement as any; // Use `any` to bypass TypeScript checks
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) { // Firefox
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) { // IE/Edge
+      element.msRequestFullscreen();
+    }
+  };
+  
+
+  useEffect(() => {
+    enterFullscreen();
+  }, []);
+
   return (
     <div className={styles.fullscreenContainer}>
       <Head>
         <title>Typing Test</title>
       </Head>
       <div className={styles.typingContainer}>
+        <h1 className={styles.heading}>Typing Test Assessment</h1>
         <div className={styles.timer}>Time Left: {timer}s</div>
         <div className={styles.story}>{renderStory()}</div>
         <input
@@ -174,7 +192,7 @@ const TypingTest = () => {
           autoFocus
           className={styles.inputField}
         />
-          <div className={styles.stats}>
+        <div className={styles.stats}>
           <div className={styles.statBox}>
             <div className={styles.statTitle}>WPM</div>
             <div className={styles.statValue}>{wpm}</div>
@@ -185,7 +203,7 @@ const TypingTest = () => {
           </div>
         </div>
         <button className={styles.exitButton} onClick={() => router.push('/')}>
-          Exit
+         Exit
         </button>
       </div>
     </div>
