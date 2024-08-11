@@ -51,7 +51,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onProceed, step, userName, diffi
               <strong>Instructions:</strong><br />
               1. Type the text as quickly and accurately as you can.<br />
               2. Your Words Per Minute (WPM) and accuracy will be displayed in real-time.<br />
-              3. The test lasts for 1 minute. Try to make the most of it!<br />
+              3. Choose the difficulty mode that best matches your current typing skills to get the most accurate assessment.<br />
               4. The test screen will occupy the full screen. Use <code>F11</code> to toggle full-screen mode or <code>ESC</code> to exit.
             </p>
             <div className={styles.checkboxWrapper}>
