@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 const TypingTest = () => {
   const router = useRouter();
-  const { name } = router.query;
+  const { name, difficulty } = router.query;
   const [story, setStory] = useState('');
   const [userInput, setUserInput] = useState('');
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -54,10 +54,34 @@ const TypingTest = () => {
   }, [name, router]);
 
   useEffect(() => {
+    let timerDuration = 60; 
+
+    if (typeof difficulty === 'string') {
+      switch (difficulty) {
+        case 'easy':
+          timerDuration = 180;
+          break;
+        case 'medium':
+          timerDuration = 60;
+          break;
+        case 'hard':
+          timerDuration = 45; 
+          break;
+        case 'professional':
+          timerDuration = 30; 
+          break;
+        default:
+          timerDuration = 60;
+          break;
+      }
+    }
+
+    setTimer(timerDuration);
+
     if (startTime) {
       const interval = setInterval(() => {
         const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        const remaining = 60 - elapsed;
+        const remaining = timerDuration - elapsed;
         if (remaining <= 0) {
           clearInterval(interval);
           setTimer(0);
@@ -69,7 +93,7 @@ const TypingTest = () => {
 
       return () => clearInterval(interval);
     }
-  }, [startTime, userInput]);
+  }, [startTime, userInput, difficulty]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -81,14 +105,14 @@ const TypingTest = () => {
   const updateWpm = (input: string) => {
     if (startTime) {
       const elapsed = (Date.now() - startTime) / 60000; // minutes
-      const words = input.split(' ').length;
+      const words = input.trim().split(/\s+/).length;
       setWpm(Math.round(words / elapsed));
     }
   };
 
   const updateAccuracy = (input: string) => {
-    const storyWords = story.split(' ');
-    const inputWords = input.split(' ');
+    const storyWords = story.trim().split(/\s+/);
+    const inputWords = input.trim().split(/\s+/);
     let correctWords = 0;
 
     for (let i = 0; i < Math.min(storyWords.length, inputWords.length); i++) {
