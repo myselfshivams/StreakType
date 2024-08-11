@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -76,41 +76,54 @@ const TypingTest = () => {
       }
     }
 
-    setTimer(timerDuration);
+    let intervalId: number;
 
-    if (startTime) {
-      const interval = setInterval(() => {
+    const updateTimer = () => {
+      if (startTime !== null) {
         const elapsed = Math.floor((Date.now() - startTime) / 1000);
-        const remaining = timerDuration - elapsed;
+        const remaining = Math.max(timerDuration - elapsed, 0);
+        setTimer(remaining);
         if (remaining <= 0) {
-          clearInterval(interval);
-          setTimer(0);
+          clearInterval(intervalId);
           updateWpm(userInput);
         } else {
-          setTimer(remaining);
+          intervalId = requestAnimationFrame(updateTimer);
         }
-      }, 1000);
+      }
+    };
 
-      return () => clearInterval(interval);
+    if (startTime === null) {
+      setTimer(timerDuration);
+    } else {
+      intervalId = requestAnimationFrame(updateTimer);
     }
+
+    return () => {
+      if (intervalId) {
+        cancelAnimationFrame(intervalId);
+      }
+    };
   }, [startTime, userInput, difficulty]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     setUserInput(input);
+    if (startTime === null) {
+      setStartTime(Date.now()); // Start the test when the user starts typing
+    }
     updateWpm(input);
     updateAccuracy(input);
   };
 
-  const updateWpm = (input: string) => {
+  const updateWpm = useCallback((input: string) => {
     if (startTime) {
       const elapsed = (Date.now() - startTime) / 60000; // minutes
       const words = input.trim().split(/\s+/).length;
       setWpm(Math.round(words / elapsed));
     }
-  };
+  }, [startTime]);
 
-  const updateAccuracy = (input: string) => {
+  const updateAccuracy = useCallback((input: string) => {
     const storyWords = story.trim().split(/\s+/);
     const inputWords = input.trim().split(/\s+/);
     let correctWords = 0;
@@ -123,7 +136,7 @@ const TypingTest = () => {
 
     const accuracy = (correctWords / storyWords.length) * 100;
     setAccuracy(Math.round(accuracy));
-  };
+  }, [story]);
 
   const renderStory = () => {
     return story.split('').map((char, index) => {
@@ -142,10 +155,6 @@ const TypingTest = () => {
         </span>
       );
     });
-  };
-
-  const startTest = () => {
-    setStartTime(Date.now());
   };
 
   return (
@@ -171,7 +180,6 @@ const TypingTest = () => {
         <button className={styles.exitButton} onClick={() => router.push('/')}>
           Exit
         </button>
-        {!startTime && <button className={styles.startButton} onClick={startTest}>Start Test</button>}
       </div>
     </div>
   );
