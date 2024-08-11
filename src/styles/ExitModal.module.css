@@ -1,3 +1,5 @@
+/* EndModal.module.css */
+
 .modal {
     position: fixed;
     top: 0;
@@ -12,14 +14,41 @@
   }
   
   .modalContent {
-    background: white;
+    background: #fff;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .statsContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .statsBox {
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px 20px;
+    width: 45%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .statsBox p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
   }
   
   .buttonContainer {
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
   }
   
   .confirmButton, .cancelButton {
@@ -27,13 +56,30 @@
     border: none;
     color: white;
     padding: 10px 20px;
-    margin: 0 5px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .confirmButton {
+    background: #fd2d2d;
   }
   
   .cancelButton {
     background: #eaeaea;
     color: #333;
+  }
+  
+  .confirmButton:hover, .cancelButton:hover {
+    background: rgba(219, 0, 0, 0.8); /* Darker shade for hover effect */
+  }
+
+  .cancelButton:hover {
+    background: rgba(166, 166, 166, 0.8); /* Darker shade for hover effect */
+  }
+
+  
+  .confirmButton:active, .cancelButton:active {
+    transform: scale(0.95); /* Slight scaling effect on click */
   }
   

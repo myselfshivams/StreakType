@@ -180,9 +180,19 @@ const TypingTest = () => {
       element.msRequestFullscreen();
     }
   };
-  
+
+  const handleFullscreenChange = () => {
+    if (!document.fullscreenElement) {
+      router.push('/typing');
+    }
+  };
+
   useEffect(() => {
     enterFullscreen();
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
   }, []);
 
   const handleRetry = () => {
