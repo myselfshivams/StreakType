@@ -1,61 +1,130 @@
-/* Fullscreen container for typing test */
 .fullscreenContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    background: linear-gradient(89.9deg, rgb(233, 246, 249) 0.1%, rgb(250, 245, 245) 47.9%, rgb(247, 247, 239) 100.2%);background: radial-gradient(circle at 12.8% 28%, rgb(239, 228, 247) 0%, rgb(216, 243, 249) 90%); 
-    overflow: hidden;
-    position: relative;
-    color: #000000;
-    padding: 20px;
-    overflow: hidden;
-    position: relative;
-    z-index: 1000;
-  }
-  
-  .typingContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .timer {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .story {
-    font-size: 24px;
-    white-space: pre-wrap;
-    margin-bottom: 20px;
-  }
-  
-  .inputField {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-    max-width: 600px;
-  }
-  
-  .stats {
-    margin-top: 20px;
-  }
-  
-  .exitButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px;
-    background: #fff;
-    color: #000;
-    border: none;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f0f0f0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.typingContainer {
+  width: 80%;
+  max-width: 900px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.timer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d32f2f; /* Red color for urgency */
+  background: #fff3e0; /* Light orange background */
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.story {
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.statBox {
+  flex: 1;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
+}
+
+.statTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.exitButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: #d32f2f; /* Red background */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exitButton:hover {
+  background: #b71c1c; /* Darker red */
+  transform: scale(1.05);
+}
+
+.exitButton:focus {
+  outline: none;
+}
+
+.exitButton svg {
+  margin-right: 8px;
+}
+
+.startButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: #4caf50; /* Green background */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.startButton:hover {
+  background: #388e3c; /* Darker green */
+  transform: scale(1.05);
+}
+
+.startButton:focus {
+  outline: none;
+}

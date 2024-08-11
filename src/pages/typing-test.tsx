@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const TypingTest = () => {
   const router = useRouter();
@@ -173,9 +174,15 @@ const TypingTest = () => {
           autoFocus
           className={styles.inputField}
         />
-        <div className={styles.stats}>
-          <div>WPM: {wpm}</div>
-          <div>Accuracy: {accuracy}%</div>
+          <div className={styles.stats}>
+          <div className={styles.statBox}>
+            <div className={styles.statTitle}>WPM</div>
+            <div className={styles.statValue}>{wpm}</div>
+          </div>
+          <div className={styles.statBox}>
+            <div className={styles.statTitle}>Accuracy</div>
+            <div className={styles.statValue}>{accuracy}%</div>
+          </div>
         </div>
         <button className={styles.exitButton} onClick={() => router.push('/')}>
           Exit
