@@ -2,8 +2,9 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Modal from '../components/EndModal'; // Import the Modal component
-import ExitConfirmationModal from '../components/ExitModal'; // Import the ExitConfirmationModal component
+import Modal from '../components/EndModal';
+import ExitConfirmationModal from '../components/ExitModal';
+import TypingStatsChart from '../components/TypingStatsChart'; // Import the new chart component
 
 const TypingTest = () => {
   const router = useRouter();
@@ -14,8 +15,11 @@ const TypingTest = () => {
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
   const [timer, setTimer] = useState(60);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
-  const [showExitModal, setShowExitModal] = useState(false); // State to control exit modal visibility
+  const [showModal, setShowModal] = useState(false);
+  const [showExitModal, setShowExitModal] = useState(false);
+  const [wpmData, setWpmData] = useState<number[]>([]);
+  const [accuracyData, setAccuracyData] = useState<number[]>([]);
+  const [timeLabels, setTimeLabels] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -36,14 +40,14 @@ const TypingTest = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
-        router.push('/'); 
+        router.push('/');
       }
     };
 
     const handleF11 = (event: KeyboardEvent) => {
       if (event.key === 'F11') {
         event.preventDefault();
-        document.exitFullscreen?.(); 
+        document.exitFullscreen?.();
       }
     };
 
@@ -58,7 +62,7 @@ const TypingTest = () => {
   }, [name, router]);
 
   useEffect(() => {
-    let timerDuration = 60; 
+    let timerDuration = 60;
 
     if (typeof difficulty === 'string') {
       switch (difficulty) {
@@ -69,10 +73,10 @@ const TypingTest = () => {
           timerDuration = 60;
           break;
         case 'hard':
-          timerDuration = 45; 
+          timerDuration = 45;
           break;
         case 'professional':
-          timerDuration = 30; 
+          timerDuration = 30;
           break;
         default:
           timerDuration = 60;
@@ -90,7 +94,8 @@ const TypingTest = () => {
         if (remaining <= 0) {
           clearInterval(intervalId);
           updateWpm(userInput);
-          if (!showModal) setShowModal(true); // Show modal when the timer runs out
+          updateAccuracy(userInput);
+          if (!showModal) setShowModal(true);
         } else {
           intervalId = requestAnimationFrame(updateTimer);
         }
@@ -112,7 +117,7 @@ const TypingTest = () => {
 
   useEffect(() => {
     if (userInput.trim() === story.trim() && !showModal) {
-      setShowModal(true); // Show modal when the story is fully typed
+      setShowModal(true);
     }
   }, [userInput, story, showModal]);
 
@@ -120,7 +125,7 @@ const TypingTest = () => {
     const input = e.target.value;
     setUserInput(input);
     if (startTime === null) {
-      setStartTime(Date.now()); // Start the test when the user starts typing
+      setStartTime(Date.now());
     }
     updateWpm(input);
     updateAccuracy(input);
@@ -130,7 +135,10 @@ const TypingTest = () => {
     if (startTime) {
       const elapsed = (Date.now() - startTime) / 60000; // minutes
       const words = input.trim().split(/\s+/).length;
-      setWpm(Math.round(words / elapsed));
+      const currentWpm = Math.round(words / elapsed);
+      setWpm(currentWpm);
+      setWpmData(prev => [...prev, currentWpm]);
+      setTimeLabels(prev => [...prev, new Date().toLocaleTimeString()]);
     }
   }, [startTime]);
 
@@ -145,8 +153,9 @@ const TypingTest = () => {
       }
     }
 
-    const accuracy = (correctWords / storyWords.length) * 100;
-    setAccuracy(Math.round(accuracy));
+    const currentAccuracy = (correctWords / storyWords.length) * 100;
+    setAccuracy(Math.round(currentAccuracy));
+    setAccuracyData(prev => [...prev, Math.round(currentAccuracy)]);
   }, [story]);
 
   const renderStory = () => {
@@ -169,14 +178,14 @@ const TypingTest = () => {
   };
 
   const enterFullscreen = () => {
-    const element = document.documentElement as any; // Use `any` to bypass TypeScript checks
+    const element = document.documentElement as any;
     if (element.requestFullscreen) {
       element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) { // Firefox
+    } else if (element.mozRequestFullScreen) { 
       element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    } else if (element.webkitRequestFullscreen) { 
       element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) { // IE/Edge
+    } else if (element.msRequestFullscreen) { 
       element.msRequestFullscreen();
     }
   };
@@ -200,8 +209,11 @@ const TypingTest = () => {
     setStartTime(null);
     setWpm(0);
     setAccuracy(100);
+    setWpmData([]);
+    setAccuracyData([]);
+    setTimeLabels([]);
     setShowModal(false);
-    inputRef.current?.focus(); // Refocus input field
+    inputRef.current?.focus();
   };
 
   const handleExit = () => {
@@ -252,12 +264,18 @@ const TypingTest = () => {
           Exit
         </button>
         {showModal && name && (
-          <Modal
-            name={name as string}
-            wpm={wpm}
-            accuracy={accuracy}
-            onRetry={handleRetry}
-            onExit={handleExit}
+     <Modal
+     name={name as string}
+     wpm={wpm}
+     accuracy={accuracy}
+     onRetry={handleRetry}
+     onExit={handleExit}
+     graph={
+       <TypingStatsChart
+         wpmData={wpmData}
+         accuracyData={accuracyData}
+         timeLabels={timeLabels}
+       />} // Add the graph component here
           />
         )}
         {showExitModal && (

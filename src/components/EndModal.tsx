@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
+import TypingStatsChart from './TypingStatsChart'; // Import the TypingStatsChart component
 import styles from '../styles/EndModal.module.css';
 
 interface ModalProps {
@@ -8,9 +9,20 @@ interface ModalProps {
   accuracy: number;
   onRetry: () => void;
   onExit: () => void;
+  graph?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit }) => {
+const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, graph }) => {
+  const [showGraphModal, setShowGraphModal] = useState(false);
+
+  const handleShowGraph = () => {
+    setShowGraphModal(true);
+  };
+
+  const handleCloseGraphModal = () => {
+    setShowGraphModal(false);
+  };
+
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
@@ -71,10 +83,56 @@ const Modal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit }) =
           >
             Go to Home
           </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleShowGraph}
+            sx={{
+              backgroundColor: '#2196f3',
+              color: '#fff',
+              borderRadius: '8px',
+              '&:hover': {
+                backgroundColor: '#1976d2',
+              },
+              '&:active': {
+                backgroundColor: '#1565c0',
+              },
+            }}
+          >
+            Show Graph
+          </Button>
         </div>
+        {showGraphModal && (
+          <div className={styles.graphModal}>
+            <div className={styles.graphModalContent}>
+              <Typography variant="h6" gutterBottom>
+                Typing Test Performance
+              </Typography>
+              {graph}
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleCloseGraphModal}
+                sx={{
+                  backgroundColor: '#f50057',
+                  color: '#fff',
+                  borderRadius: '8px',
+                  '&:hover': {
+                    backgroundColor: '#c51162',
+                  },
+                  '&:active': {
+                    backgroundColor: '#aa00ff',
+                  },
+                }}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default Modal;
+export default EndModal;

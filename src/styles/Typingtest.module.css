@@ -1,130 +1,141 @@
+/* Fullscreen container */
 .fullscreenContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f0f0f0;
+  background: #121212; /* Dark background */
   font-family: 'Roboto', sans-serif;
+  position: relative; /* Allows absolute positioning of child elements */
 }
 
+/* Typing container */
 .typingContainer {
   width: 80%;
   max-width: 900px;
   padding: 20px;
-  background: white;
+  background: #1e1e1e; /* Darker container background */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
+/* Heading */
 .heading {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
+  color: #00e5ff; /* Neon cyan color */
   margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.8); /* Glowing effect */
 }
 
+/* Timer */
 .timer {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #d32f2f; /* Red color for urgency */
-  background: #fff3e0; /* Light orange background */
+  color: #ff4081; /* Neon pink color */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 6px rgba(255, 64, 129, 0.6); /* Glowing effect */
 }
 
+/* Story */
 .story {
   white-space: pre-wrap;
   margin-bottom: 20px;
   text-align: left;
   font-size: 1rem;
   line-height: 1.5;
+  color: #e0e0e0; /* Light text color for dark mode */
 }
 
+/* Input field */
 .inputField {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #333; /* Dark border */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: #1e1e1e; /* Dark background */
+  color: #e0e0e0; /* Light text color */
 }
 
+/* Stats */
 .stats {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
 }
 
+/* Stat box */
 .statBox {
   flex: 1;
   padding: 15px;
-  background: #f9f9f9;
+  background: #2c2c2c; /* Darker background for stats */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   margin: 0 10px;
+  color: #e0e0e0; /* Light text color */
 }
 
+/* Stat title */
 .statTitle {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #ff4081; /* Neon pink color */
 }
 
+/* Stat value */
 .statValue {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: #00e5ff; /* Neon cyan color */
 }
 
+/* Exit button */
 .exitButton {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  background: #d32f2f; /* Red background */
-  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0.6em 1em;
+  border: 4px solid #ff0000;
+  transition: ease-in-out 0.3s;
+  background-color: transparent;
+  color: #ff0000;
+  font-weight: bolder;
+  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-shadow: 0 0 6px rgba(255, 62, 62, 0.308); /* Glowing effect */
 }
 
 .exitButton:hover {
-  background: #b71c1c; /* Darker red */
-  transform: scale(1.05);
+  transform: scale(1.2) rotate(10deg);
+  background-color: #ff0000;
+  color: white;
 }
 
-.exitButton:focus {
-  outline: none;
-}
-
-.exitButton svg {
-  margin-right: 8px;
-}
-
+/* Start button */
 .startButton {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 1rem;
   font-weight: bold;
-  color: white;
-  background: #4caf50; /* Green background */
+  color: #000; /* Dark text color */
+  background: #00e5ff; /* Neon cyan background */
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.6); /* Glowing effect */
 }
 
 .startButton:hover {
-  background: #388e3c; /* Darker green */
+  background: #00bcd4; /* Darker neon cyan */
   transform: scale(1.05);
-}
-
-.startButton:focus {
-  outline: none;
 }
