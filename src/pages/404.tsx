@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import styles from '@/styles/404.module.css'; // Assuming you will add styles in this file
+import styles from '@/styles/404.module.css'; 
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
