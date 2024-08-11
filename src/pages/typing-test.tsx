@@ -3,6 +3,7 @@ import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Modal from '../components/EndModal'; // Import the Modal component
+import ExitConfirmationModal from '../components/ExitModal'; // Import the ExitConfirmationModal component
 
 const TypingTest = () => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const TypingTest = () => {
   const [accuracy, setAccuracy] = useState(100);
   const [timer, setTimer] = useState(60);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showExitModal, setShowExitModal] = useState(false); // State to control exit modal visibility
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -193,7 +195,20 @@ const TypingTest = () => {
   };
 
   const handleExit = () => {
-    router.push('/');
+    router.push('/typing');
+  };
+
+  const handleExitConfirmation = () => {
+    setShowExitModal(true);
+  };
+
+  const handleConfirmExit = () => {
+    setShowExitModal(false);
+    router.push('/typing');
+  };
+
+  const handleCancelExit = () => {
+    setShowExitModal(false);
   };
 
   return (
@@ -223,7 +238,7 @@ const TypingTest = () => {
             <div className={styles.statValue}>{accuracy}%</div>
           </div>
         </div>
-        <button className={styles.exitButton} onClick={() => router.push('/')}>
+        <button className={styles.exitButton} onClick={handleExitConfirmation}>
           Exit
         </button>
         {showModal && name && (
@@ -233,6 +248,12 @@ const TypingTest = () => {
             accuracy={accuracy}
             onRetry={handleRetry}
             onExit={handleExit}
+          />
+        )}
+        {showExitModal && (
+          <ExitConfirmationModal
+            onConfirm={handleConfirmExit}
+            onCancel={handleCancelExit}
           />
         )}
       </div>

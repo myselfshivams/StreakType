@@ -12,6 +12,11 @@ html, body {
   
   * {
     box-sizing: border-box;
+    
+      -webkit-user-select: none; /* Disables text selection in WebKit browsers */
+      -moz-user-select: none; /* Disables text selection in Firefox */
+      -ms-user-select: none; /* Disables text selection in Internet Explorer */
+    
   }
   
   a {
