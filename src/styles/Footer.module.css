@@ -208,10 +208,10 @@
   right: 3%; 
   background: #ae00d5; 
   color: #ffffff; 
-  border-radius: 100%;
-  padding: 15px;
+  border-radius: 50%;
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  font-size: 20px; 
+  font-size: 34px; 
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -223,4 +223,33 @@
 
 .scrollTop:focus {
   outline: none;
+}
+
+
+.streakButton {
+  position: fixed;
+  right: 2%; /* Adjust as needed */
+  bottom: 5%; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  background-color: #f44336; /* Example color, adjust as needed */
+  color: white;
+  padding: 20px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  z-index: 1000;
+}
+
+.streakButton:hover {
+  background-color: #d32f2f; /* Darker color on hover */
+}
+
+.fireIcon {
+  font-size: 34px; /* Adjust size as needed */
+}
+
+.streakNumber {
+  font-size: 24px; /* Adjust size as needed */
+  margin-left: 4px;
 }

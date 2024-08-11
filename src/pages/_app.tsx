@@ -1,3 +1,4 @@
+// pages/_app.tsx
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -7,11 +8,15 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../context/authContext';
+import { updateStreak, getStreak } from '../utils/streak';
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
+    // Update streak on page load
+    updateStreak();
+
     const handleVisibilityChange = () => {
       if (document.hidden) {
         document.title = "Come Back to the Portal!";

@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { FaEnvelope, FaInstagram, FaGithub, FaArrowUp } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaEnvelope, FaInstagram, FaGithub, FaArrowUp, FaFire } from 'react-icons/fa';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import styles from '@/styles/Footer.module.css';
+import { getStreak } from '../utils/streak'; // Import the streak function
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [streak, setStreak] = useState<number>(0);
+
+  useEffect(() => {
+    // Set the streak value when component mounts
+    setStreak(getStreak());
+  }, []);
 
   const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,10 +81,14 @@ const Footer: React.FC = () => {
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
         </div>
-        <a href="#top" className={styles.scrollTop} aria-label="Scroll to Top">
-          <FaArrowUp className={styles.icon} />
-        </a>
+      
       </div>
+
+      {/* Fixed Streak Button */}
+      <a href="#streak" className={styles.streakButton} aria-label="Streak">
+        <FaFire className={styles.fireIcon} />
+        <span className={styles.streakNumber}>{streak}</span>
+      </a>
     </footer>
   );
 };
