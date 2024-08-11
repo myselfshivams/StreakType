@@ -15,27 +15,45 @@ const TypingTest = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (typeof name === 'string') {
-      fetchStory(name);
-    }
+    const fetchStory = async () => {
+      if (typeof name === 'string') {
+        try {
+          const response = await fetch(`https://stories.studex.tech/api/stories?character=${name}&random=true`);
+          const data = await response.json();
+          setStory(data.story);
+        } catch (error) {
+          console.error('Error fetching story:', error);
+        }
+      }
+    };
+
+    fetchStory();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
-        router.push('/'); // Redirect to homepage or another page
+        router.push('/'); 
       }
     };
 
     const handleF11 = (event: KeyboardEvent) => {
       if (event.key === 'F11') {
         event.preventDefault();
-        document.exitFullscreen?.(); // Exit full-screen mode
+        document.exitFullscreen?.(); 
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keydown', handleF11);
 
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleF11);
+    };
+
+  }, [name, router]);
+
+  useEffect(() => {
     if (startTime) {
       const interval = setInterval(() => {
         const elapsed = Math.floor((Date.now() - startTime) / 1000);
@@ -51,27 +69,7 @@ const TypingTest = () => {
 
       return () => clearInterval(interval);
     }
-
-    // Request full-screen mode
-    const enterFullScreen = () => {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen(); // Enter full-screen mode
-      }
-    };
-
-    enterFullScreen();
-
-  }, [startTime, userInput, name]);
-
-  const fetchStory = async (character: string) => {
-    try {
-      const response = await fetch(`https://stories.studex.tech/api/stories?character=${character}&random=true`);
-      const data = await response.json();
-      setStory(data.story);
-    } catch (error) {
-      console.error('Error fetching story:', error);
-    }
-  };
+  }, [startTime, userInput]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
@@ -149,6 +147,7 @@ const TypingTest = () => {
         <button className={styles.exitButton} onClick={() => router.push('/')}>
           Exit
         </button>
+        {!startTime && <button className={styles.startButton} onClick={startTest}>Start Test</button>}
       </div>
     </div>
   );
