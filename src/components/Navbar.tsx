@@ -1,11 +1,17 @@
 import { FC, useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
+import Modal from './LoginModal';
+import { useAuth } from '../context/authContext';
 
 const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { token, logout } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <>
@@ -21,8 +27,21 @@ const Navbar: FC = () => {
           <Link href="/about">About</Link>
           <Link href="/typing">Typing Test</Link>
           <Link href="/docs">Documentation</Link>
+          {token ? (
+            <div className={styles.userContainer}>
+              <button className={styles.buttonef} onClick={logout}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button className={styles.buttonef} onClick={openModal}>
+              Login
+            </button>
+          )}
         </div>
+      
       </nav>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 };

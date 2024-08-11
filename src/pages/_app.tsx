@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import '../styles/globals.css';
+import { useEffect } from 'react';
+
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { AuthProvider } from '../context/authContext';
 
-
-
-
+const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -29,8 +30,9 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-
-        <><Head>
+    <AuthProvider>
+      <GoogleOAuthProvider clientId={clientId}>
+      <Head>
       <title>Streaktype</title>
       <link rel="icon" href="streaktype.png" />
       <meta name="description" content="Uncover user and system data collected by websites, including IP addresses, device info, and connectivity details." />
@@ -42,8 +44,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <link rel="canonical" href="https://streaktype.studex.tech" />
     </Head>
 
-    <ToastContainer />
-    <Component {...pageProps} />
-    </>
+
+        <ToastContainer />
+        <Component {...pageProps} />
+      </GoogleOAuthProvider>
+    </AuthProvider>
   );
 }
