@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
             <Link href="/typing">Typing Test</Link>
-            <Link href="/docs">Docs</Link>
+            <Link href="/leaderboard">Leaderboard</Link>
           </div>
         </div>
 
@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
       
       </div>
 
-      {/* Fixed Streak Button */}
+     
       <a href="#streak" className={styles.streakButton} aria-label="Streak">
         <FaFire className={styles.fireIcon} />
         <span className={styles.streakNumber}>{streak}</span>

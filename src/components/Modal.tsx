@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import styles from '../styles/Modal.module.css';
 
 interface ModalProps {
@@ -13,13 +14,20 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ onClose, onProceed, step, userName, difficulty, setUserName, setDifficulty }) => {
   const [isAccepted, setIsAccepted] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
   const modalContentRef = useRef<HTMLDivElement>(null);
 
   const handleProceed = () => {
     if (step === 1 && isAccepted) {
       onProceed();
-    } else if (step === 2) {
+    } else if (step === 2 && captchaVerified) {
       onProceed();
+    }
+  };
+
+  const handleCaptchaChange = (value: string | null) => {
+    if (value) {
+      setCaptchaVerified(true);
     }
   };
 
@@ -108,10 +116,17 @@ const Modal: React.FC<ModalProps> = ({ onClose, onProceed, step, userName, diffi
               </select>
               <label htmlFor="difficulty" className={styles.inputLabel}>Select Difficulty</label>
             </div>
+            <div className={styles.captchaWrapper}>
+              <ReCAPTCHA
+               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} 
+               onChange={handleCaptchaChange}
+               theme="dark" 
+              />
+            </div>
             <p className={styles.fullScreenReminder}>
               If you exit full-screen mode, the test will end.
             </p>
-            <button onClick={handleProceed} className={styles.submitButton}>
+            <button onClick={handleProceed} className={styles.submitButton} disabled={!captchaVerified}>
               Start Test
             </button>
           </>

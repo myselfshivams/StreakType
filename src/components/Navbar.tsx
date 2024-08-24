@@ -26,7 +26,7 @@ const Navbar: FC = () => {
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
           <Link href="/typing">Typing Test</Link>
-          <Link href="/docs">Documentation</Link>
+          <Link href="/leaderboard">Leaderboard</Link>
           {token ? (
             <div className={styles.userContainer}>
               <button className={styles.buttonef} onClick={logout}>
