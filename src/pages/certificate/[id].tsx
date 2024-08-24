@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import supabase from '../../utils/supabase/server';
 import styles from '../../styles/CertificatePage.module.css';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
@@ -42,21 +44,47 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-const CertificatePage = ({ unique_id, name, wpm, accuracy, date }: { unique_id: string, name: string, wpm: number, accuracy: number, date: string }) => {
+const CertificatePage = ({
+  unique_id,
+  name,
+  wpm,
+  accuracy,
+  date,
+}: {
+  unique_id: string;
+  name: string;
+  wpm: number;
+  accuracy: number;
+  date: string;
+}) => {
   const [html2pdf, setHtml2pdf] = useState<any>(null);
 
-  useEffect(() => {
-    import('html2pdf.js').then((module) => {
-      setHtml2pdf(module.default);
-    });
-  }, []);
+
 
   const handleDownloadPDF = () => {
-    if (html2pdf) {
-      const element = document.getElementById('certificate');
-      if (element) {
-        html2pdf().from(element).save('certificate.pdf');
-      }
+    const element = document.getElementById('certificate');
+    if (element) {
+      html2canvas(element, { scale: 2 }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        
+        // Calculate PDF dimensions
+        const pdf = new jsPDF({
+          orientation: 'p',
+          unit: 'mm',
+          format: [canvas.width * 0.75, canvas.height * 0.75],
+        });
+
+        // Calculate image dimensions and position
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = canvas.width * 0.3;
+        const imgHeight = canvas.height * 0.3;
+        const x = 0;
+        const y = 0;
+
+        pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+        pdf.save('certificate.pdf');
+      });
     }
   };
 
@@ -70,8 +98,14 @@ const CertificatePage = ({ unique_id, name, wpm, accuracy, date }: { unique_id: 
         <p>Accuracy: {accuracy}</p>
         <p>Date: {date}</p>
       </div>
-      <button onClick={handleDownloadPDF}>Download PDF</button>
-      <button onClick={() => window.print()}>Print</button>
+      <div className={styles.buttons}>
+        <button className={styles.button} onClick={handleDownloadPDF}>
+          Download PDF
+        </button>
+        <button className={styles.button} onClick={() => window.print()}>
+          Print
+        </button>
+      </div>
     </div>
   );
 };
