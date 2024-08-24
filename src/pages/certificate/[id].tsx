@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import supabase from '../../utils/supabase/server';
 import styles from '../../styles/CertificatePage.module.css';
@@ -56,18 +55,6 @@ const CertificatePage = ({
   accuracy: number;
   date: string;
 }) => {
-
-  const isMobileDevice = () => {
-    return /Mobi|Android/i.test(navigator.userAgent);
-  };
-
-
-  useEffect(() => {
-    if (isMobileDevice()) {
-      handleDownloadPDF();
-    }
-  }, []);
-
   const handleDownloadPDF = () => {
     const element = document.getElementById('certificate');
     if (element) {
@@ -87,23 +74,18 @@ const CertificatePage = ({
 
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
-
+        // Add small URL text at the bottom left corner
         const url = `https://streaktype.studex.tech/certificate/${unique_id}`;
         pdf.setFontSize(8);
         pdf.text('', 10, pdfHeight - 10);
         pdf.text(url, 10, pdfHeight - 3);
 
-
-        const filename = `Certificate-${name.replace(/\s+/g, '-')}.pdf`; 
+        // Save PDF with a filename including the user's name
+        const filename = `Certificate-${name.replace(/\s+/g, '-')}.pdf`; // Replace spaces with hyphens for filename
         pdf.save(filename);
       });
     }
   };
-
-
-  if (isMobileDevice()) {
-    return null;
-  }
 
   return (
     <div className={styles.container}>
@@ -126,13 +108,14 @@ const CertificatePage = ({
             </div>
           </div>
           <div className={styles.text1}>Credential ID: <strong>{unique_id}</strong></div>
+          <p className={styles.text}>Date: <strong>{date}</strong></p>
         </div>
         <div className={styles.footer}>
           <p>Issued by</p>
           <p>StreakType Portal</p>
         </div>
         <div className={styles.date}>
-          <p>Date:<strong> {date}</strong></p>
+        <p>Date:<strong> {date}</strong></p>
         </div>
       </div>
       <div className={styles.buttons}>
