@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import styles from '@/styles/Leaderboard.module.css'; // Ensure you create this CSS file for styling
+import styles from '@/styles/Leaderboard.module.css'; 
 
-// Initialize Supabase client
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 interface Certificate {
+  score: ReactNode;
   id: string;
   name: string;
   accuracy: number;
   wpm: number;
-  date: string;  // Ensure this field matches the column name in your Supabase table
+  date: string;  
 }
 
 const Leaderboard: React.FC = () => {
@@ -24,18 +24,18 @@ const Leaderboard: React.FC = () => {
     const fetchLeaderboardData = async () => {
       console.log('Fetching data from Supabase...');
       
-      // Get the date for one month ago
       const oneMonthAgo = new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString();
       console.log('Date filter (one month ago):', oneMonthAgo);
 
       try {
         const { data: responseData, error } = await supabase
-          .from('certificates')  // Table name
+          .from('certificates')  
           .select('*')
           .gte('wpm', 0)
           .lte('wpm', 120)
-          .gte('date', oneMonthAgo)  // Use the correct column name
-          .order('accuracy', { ascending: false });  // Update column name here
+          .gte('date', oneMonthAgo) 
+          .order('wpm', { ascending: false })  
+          .order('accuracy', { ascending: false });  
 
         if (error) {
           console.error('Error fetching data:', error);
@@ -47,7 +47,12 @@ const Leaderboard: React.FC = () => {
           console.log('No records found matching the criteria.');
         }
 
-        setData(responseData || []);
+        const rankedData = responseData.map((item) => ({
+          ...item,
+          score: item.wpm + item.accuracy  
+        })).sort((a, b) => b.score - a.score);  
+
+        setData(rankedData || []);
       } catch (error) {
         console.error('Unexpected error:', error);
       } finally {
@@ -74,6 +79,7 @@ const Leaderboard: React.FC = () => {
                 <th>User</th>
                 <th>Accuracy</th>
                 <th>WPM</th>
+                <th>Score</th>
               </tr>
             </thead>
             <tbody>
@@ -83,6 +89,7 @@ const Leaderboard: React.FC = () => {
                   <td>{item.name}</td>
                   <td>{item.accuracy}</td>
                   <td>{item.wpm}</td>
+                  <td>{item.score}</td> 
                 </tr>
               ))}
             </tbody>

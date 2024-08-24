@@ -115,20 +115,21 @@ const TypingTest = () => {
   };
 
   const updateAccuracy = (input: string) => {
-    const storyWords = story.trim().split(/\s+/);
-    const inputWords = input.trim().split(/\s+/);
-    let correctWords = 0;
-
-    for (let i = 0; i < Math.min(storyWords.length, inputWords.length); i++) {
-      if (storyWords[i] === inputWords[i]) {
-        correctWords++;
+    let correctChars = 0;
+  
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] === story[i]) {
+        correctChars++;
       }
     }
-
-    const currentAccuracy = (correctWords / storyWords.length) * 100;
-    setAccuracy(Math.round(currentAccuracy));
+  
+    const currentAccuracy = (correctChars / input.length) * 100;
+    setAccuracy(input.length === 0 ? 100 : Math.round(currentAccuracy)); // Ensure accuracy is 100% when input is empty
     setAccuracyData(prev => [...prev, Math.round(currentAccuracy)]);
   };
+  
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
