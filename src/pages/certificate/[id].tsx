@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import supabase from '../../utils/supabase/server';
 import styles from '../../styles/CertificatePage.module.css';
@@ -26,7 +25,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     console.log(`Fetched data for unique_id: ${id}`, data);
 
-    // Format date here
     const formattedDate = new Date(data.date).toLocaleString();
 
     return {
@@ -57,32 +55,24 @@ const CertificatePage = ({
   accuracy: number;
   date: string;
 }) => {
-  const [html2pdf, setHtml2pdf] = useState<any>(null);
-
-
-
   const handleDownloadPDF = () => {
     const element = document.getElementById('certificate');
     if (element) {
       html2canvas(element, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         
-        // Calculate PDF dimensions
         const pdf = new jsPDF({
           orientation: 'p',
           unit: 'mm',
-          format: [canvas.width * 0.75, canvas.height * 0.75],
+          format: [canvas.width * 0.75 / 4, canvas.height * 0.75 / 4],
         });
 
-        // Calculate image dimensions and position
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = canvas.width * 0.3;
-        const imgHeight = canvas.height * 0.3;
-        const x = 0;
-        const y = 0;
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * imgWidth) / (canvas.width * 0.75);
 
-        pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save('certificate.pdf');
       });
     }
@@ -102,9 +92,7 @@ const CertificatePage = ({
         <button className={styles.button} onClick={handleDownloadPDF}>
           Download PDF
         </button>
-        <button className={styles.button} onClick={() => window.print()}>
-          Print
-        </button>
+       
       </div>
     </div>
   );
