@@ -60,17 +60,17 @@ const CertificatePage = ({
     if (element) {
       html2canvas(element, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-        
+
         const pdf = new jsPDF({
-          orientation: 'p',
+          orientation: 'l', // Landscape orientation
           unit: 'mm',
-          format: [canvas.width * 0.75 / 4, canvas.height * 0.75 / 4],
+          format: [297, 210], // A4 size in landscape
         });
 
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
         const imgWidth = pdfWidth;
-        const imgHeight = (canvas.height * imgWidth) / (canvas.width * 0.75);
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
         pdf.save('certificate.pdf');
@@ -82,13 +82,13 @@ const CertificatePage = ({
     <div className={styles.container}>
       <div id="certificate" className={styles.certificate}>
         <div className={styles.header}>
-          <h1>Certificate of Typing Proficiency</h1>
-          <h2>Certificate of Appreciation</h2>
+       
+          <h1>Certificate of Appreciation</h1>
         </div>
         <div className={styles.body}>
           <p className={styles.text}>This is to certify that</p>
           <h3 className={styles.name}>{name}</h3>
-          <p className={styles.text}>has successfully completed the typing test with the following results:</p>
+          <p className={styles.text}>has successfully completed the StreakType typing test with the following results:</p>
           <p className={styles.text}>Words Per Minute (WPM): <strong>{wpm}</strong></p>
           <p className={styles.text}>Accuracy: <strong>{accuracy}%</strong></p>
           <p className={styles.text}>Credential ID: <strong>{unique_id}</strong></p>

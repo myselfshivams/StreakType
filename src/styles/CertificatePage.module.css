@@ -3,7 +3,6 @@
     src: url('/fonts/Canterbury.ttf') format('truetype');
   }
   
-  /* Import Google Fonts */
   @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
   
   .container {
@@ -16,13 +15,17 @@
   }
   
   .certificate {
-    width: 210mm; /* A4 size width */
-    height: 297mm; /* A4 size height */
+    width: 297mm; /* A4 size width in landscape */
+    height: 210mm; /* A4 size height */
     padding: 2rem;
-    border: 1px solid #ddd;
     background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-image: url('/assets/border.png'); /* Border image */
+    background-size: cover; /* Adjust to cover the entire certificate */
+    background-position: center; /* Center the border image */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
+    overflow: hidden;
   }
   
   .header {
@@ -32,34 +35,35 @@
   
   .header h1 {
     font-family: 'Canterbury', serif;
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin: 0;
   }
   
   .header h2 {
     font-family: 'Canterbury', serif;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: #888;
   }
   
   .body {
     text-align: center;
+    padding: 0 2rem;
   }
   
   .body p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin: 0.5rem 0;
   }
   
   .name {
     font-family: 'Alex Brush', cursive;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    margin: 0.5rem 0;
+    margin: 1rem 0;
   }
   
   .text {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
   
   .footer {
@@ -68,6 +72,7 @@
   }
   
   .footer p {
+    font-size: 1.2rem;
     margin: 0.5rem 0;
   }
   
@@ -76,8 +81,8 @@
   }
   
   .button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
     color: #fff;
     background-color: #0070f3;
     border: none;
