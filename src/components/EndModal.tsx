@@ -1,5 +1,8 @@
+
 import React, { useState } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
+import supabase from '../utils/supabase/client';
+import { v4 as uuidv4 } from 'uuid';
 import styles from '../styles/EndModal.module.css';
 
 interface ModalProps {
@@ -31,10 +34,33 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
     window.location.href = '/'; 
   };
 
-  const handleGenerateCertificate = () => {
-    const uniqueId = `${name}-${Date.now()}`; 
-    const certificateUrl = `/certificate?name=${encodeURIComponent(name)}&wpm=${wpm}&accuracy=${accuracy}&time=${encodeURIComponent(new Date().toLocaleTimeString())}&date=${encodeURIComponent(new Date().toLocaleDateString())}&id=${uniqueId}`;
-    window.location.href = certificateUrl; 
+  const handleGenerateCertificate = async () => {
+    const documentId = uuidv4(); // Generate a unique ID for the document
+    const date = new Date().toISOString(); // Current date and time
+
+    try {
+      const { data, error } = await supabase
+        .from('certificates')
+        .insert([
+          {
+            unique_id: documentId,
+            name,
+            wpm,
+            accuracy,
+            date,
+          }
+        ]);
+
+      if (error) {
+        throw error;
+      }
+
+      console.log('Certificate data stored with ID:', documentId);
+
+      window.location.href = `/certificate/${documentId}`;
+    } catch (error) {
+      console.error('Error storing certificate data:', error);
+    }
   };
 
   return (
