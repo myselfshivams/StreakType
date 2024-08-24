@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styles from '../styles/EndModal.module.css';
 
 interface ModalProps {
@@ -14,7 +13,6 @@ interface ModalProps {
 
 const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, graph }) => {
   const [showGraphModal, setShowGraphModal] = useState(false);
-
 
   const handleShowGraph = () => {
     setShowGraphModal(true);
@@ -30,7 +28,13 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
         console.error("Failed to exit full screen:", err);
       });
     }
-    window.history.back(); 
+    window.location.href = '/'; 
+  };
+
+  const handleGenerateCertificate = () => {
+    const uniqueId = `${name}-${Date.now()}`; 
+    const certificateUrl = `/certificate?name=${encodeURIComponent(name)}&wpm=${wpm}&accuracy=${accuracy}&time=${encodeURIComponent(new Date().toLocaleTimeString())}&date=${encodeURIComponent(new Date().toLocaleDateString())}&id=${uniqueId}`;
+    window.location.href = certificateUrl; 
   };
 
   return (
@@ -67,7 +71,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
           <Button
             variant="contained"
             className={`${styles.button} ${styles.error}`}
-            onClick={handleGoHome} // Use handleGoHome function
+            onClick={handleGoHome}
           >
             Go to Home
           </Button>
@@ -77,6 +81,13 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
             onClick={handleShowGraph}
           >
             Show Graph
+          </Button>
+          <Button
+            variant="contained"
+            className={`${styles.button} ${styles.certificate}`}
+            onClick={handleGenerateCertificate}
+          >
+            Generate Certificate
           </Button>
         </div>
         {showGraphModal && (

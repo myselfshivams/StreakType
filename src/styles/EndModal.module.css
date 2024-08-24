@@ -17,7 +17,7 @@
   padding: 24px;
   border-radius: 12px;
   width: 90%;
-  max-width: 500px;
+  max-width: 900px;
   position: relative;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -81,6 +81,14 @@
 
 .button.primary {
   background-color: #2196f3;
+}
+
+.button.certificate {
+  background-color: #a9bc00;
+}
+
+.button.certificate:hover {
+  background-color: #808e02;
 }
 
 .button.primary:hover {
