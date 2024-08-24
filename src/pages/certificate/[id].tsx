@@ -108,7 +108,7 @@ const CertificatePage = ({
             </div>
           </div>
           <div className={styles.text1}>Credential ID: <strong>{unique_id}</strong></div>
-          <p className={styles.text}>Date: <strong>{date}</strong></p>
+     
         </div>
         <div className={styles.footer}>
           <p>Issued by</p>
