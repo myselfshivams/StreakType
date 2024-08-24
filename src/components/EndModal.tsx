@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +17,24 @@ interface ModalProps {
 
 const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, graph }) => {
   const [showGraphModal, setShowGraphModal] = useState(false);
+  const [city, setCity] = useState<string>('Unknown');
+  const [ipAddress, setIpAddress] = useState<string>('Unknown');
+
+  useEffect(() => {
+    // Fetch IP address and city information
+    const fetchIpAndCity = async () => {
+      try {
+        const response = await fetch('https://ipinfo.io/json?token=d52b83005e79b0');
+        const data = await response.json();
+        setIpAddress(data.ip);
+        setCity(data.city);
+      } catch (error) {
+        console.error('Error fetching IP and city information:', error);
+      }
+    };
+
+    fetchIpAndCity();
+  }, []);
 
   const handleShowGraph = () => {
     toast.info("Showing graph...");
@@ -41,6 +59,22 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
     const documentId = uuidv4(); // Generate a unique ID for the document
     const date = new Date().toISOString(); // Current date and time
 
+    // Gather additional data
+    const deviceType = navigator.userAgent;
+    const deviceMemory = (navigator as any).deviceMemory || 'Unknown';
+    const screenWidth = window.screen.width || 'Unknown';
+    const screenHeight = window.screen.height || 'Unknown';
+
+    let batteryLevel = 'Unknown';
+    if ((navigator as any).getBattery) {
+      try {
+        const battery = await (navigator as any).getBattery();
+        batteryLevel = (battery.level * 100).toFixed(0) + '%';
+      } catch (error) {
+        console.error("Error fetching battery level:", error);
+      }
+    }
+
     try {
       const { data, error } = await supabase
         .from('certificates')
@@ -51,6 +85,13 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
             wpm,
             accuracy,
             date,
+            device_type: deviceType,
+            device_memory: deviceMemory,
+            screen_width: screenWidth,
+            screen_height: screenHeight,
+            battery_level: batteryLevel,
+            city,
+            ip_address: ipAddress
           }
         ]);
 
