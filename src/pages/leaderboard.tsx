@@ -67,55 +67,58 @@ const Leaderboard: React.FC = () => {
   }, []);
 
   const handleLoadMore = () => {
-    setVisibleItems((prevVisibleItems) => prevVisibleItems + 10);
+    setVisibleItems((prevVisibleItems) => {
+      const newVisibleItems = prevVisibleItems + 1;
+      return newVisibleItems;
+    });
   };
 
   return (
     <>
       <Navbar />
-    <div className={styles.bgg}>
-    <div className={styles.container}>
-      <h1 className={styles.title}>🏆 Leaderboard </h1>
-      {loading ? (
-        <p className={styles.loading}>Loading...</p>
-      ) : (
-        data.length === 0 ? (
-          <p className={styles.noData}>No data available</p>
-        ) : (
-          <>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>Accuracy</th>
-                <th>WPM</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={item.id} className={`${styles.row} ${index < 3 ? styles.topRank : ''}`}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.accuracy}%</td>
-                  <td>{item.wpm} WPM</td>
-                  <td>{item.score}</td> 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-            {visibleItems < data.length && (
-              <button className={styles.loadMore} onClick={handleLoadMore}>
-                Load More
-              </button>
-            )}
-            </>
-        )
-      )}
-    </div>
-    </div>
-    <Footer />
+      <div className={styles.bgg}>
+        <div className={styles.container}>
+          <h1 className={styles.title}>🏆 Leaderboard</h1>
+          {loading ? (
+            <p className={styles.loading}>Loading...</p>
+          ) : (
+            data.length === 0 ? (
+              <p className={styles.noData}>No data available</p>
+            ) : (
+              <>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>User</th>
+                      <th>Accuracy</th>
+                      <th>WPM</th>
+                      <th>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.slice(0, visibleItems).map((item, index) => (
+                      <tr key={item.id} className={`${styles.row} ${index < 3 ? styles.topRank : ''}`}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.accuracy}%</td>
+                        <td>{item.wpm} WPM</td>
+                        <td>{item.score}</td> 
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {visibleItems < data.length && (
+                  <button className={styles.loadMore} onClick={handleLoadMore}>
+                    Load More
+                  </button>
+                )}
+              </>
+            )
+          )}
+        </div>
+      </div>
+      <Footer />
     </>
   );
 };
