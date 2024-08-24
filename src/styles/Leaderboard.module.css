@@ -1,125 +1,197 @@
-/* Leaderboard.module.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 50px auto;
-  text-align: center;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.bgg{
-    background: url('/pattern.png') center center no-repeat, linear-gradient(135deg, rgba(45, 45, 58, 0.9) 0%, rgba(26, 26, 34, 0.8) 100%);
+/* Background Section */
+.bgg {
+    background: url('/pattern.png') center center no-repeat, 
+                linear-gradient(135deg, rgba(45, 45, 58, 0.9) 0%, rgba(26, 26, 34, 0.8) 100%);
     background-size: cover;
-    background-blend-mode: hard-light;
+    background-blend-mode: overlay;
     background-attachment: fixed;
     transition: all 0.3s ease-in-out;
     height: 100%;
+    padding-top: 7%;
+    backdrop-filter: blur(12px);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
 
+/* Container Section */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 80px auto; /* Adjusted margin */
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
+    padding: 5% 2%; /* Adjusted padding */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    background: rgba(20, 20, 30, 0.8); /* Darker semi-transparent background */
+}
+
+/* Title Section */
 .title {
-  font-size: 3rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  text-shadow: 0 0 20px var(--secondary-color);
+    font-size: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--primary-color);
+    margin-bottom: 40px; /* Increased spacing */
+    text-shadow: 0 0 25px var(--secondary-color);
+    position: relative;
+    z-index: 2;
 }
 
+.title::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -12px;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 6px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Table Section */
 .table {
-  width: 100%;
-  margin-top: 30px;
-  border-collapse: collapse;
-  background: var(--table-bg);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    margin-top: 50px;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
 .table th, .table td {
-  padding: 15px 20px;
-  text-align: center;
-  font-size: 1.2rem;
-  color: var(--text-color);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 22px;
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .table th {
-  background: var(--primary-color);
-  font-size: 1.4rem;
-  text-transform: uppercase;
+    background: var(--primary-color);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.table tbody tr {
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .table tbody tr:hover {
-  background: var(--table-hover);
-  cursor: pointer;
+    background: rgba(255, 255, 255, 0.15); /* Enhanced hover effect */
+    cursor: pointer;
+    transform: translateY(-5px);
 }
 
 .topRank {
-  animation: bounce 1s ease infinite alternate;
+    animation: bounce 1s ease infinite alternate;
 }
 
 .topRank:nth-child(1) td {
-  background: var(--gold-color);
-  color: black;
-  font-weight: 600;
+    background: var(--gold-color);
+    color: black;
+    font-weight: 700;
+
+    transform: scale(1.05);
 }
 
 .topRank:nth-child(2) td {
-  background: var(--silver-color);
-  color: black;
-  font-weight: 500;
+    background: var(--silver-color);
+    color: black;
+    font-weight: 600;
+
+    animation-delay: 0.2s;
+    transform: scale(1.03);
 }
 
 .topRank:nth-child(3) td {
-  background: var(--bronze-color);
-  color: black;
-  font-weight: 500;
+    background: var(--bronze-color);
+    color: black;
+    font-weight: 600;
+  
+    animation-delay: 0.4s;
+    transform: scale(1.02);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
-@keyframes bounce {
-  from { transform: translateY(0); }
-  to { transform: translateY(-10px); }
-}
 
+/* Load More Button */
+.loadMore {
+    display: block;
+    margin: 20px auto;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .loadMore:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+
+/* Loading & No Data Section */
 .loading {
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  animation: fadeIn 1.5s ease infinite alternate;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    animation: fadeIn 1.5s ease infinite alternate;
 }
 
 .noData {
-  font-size: 1.5rem;
-  color: var(--secondary-color);
-  margin-top: 20px;
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-top: 30px;
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
-  .title {
-    font-size: 2.5rem;
-  }
+    .title {
+        font-size: 2.2rem;
+    }
 
-  .table th, .table td {
-    font-size: 1rem;
-    padding: 10px;
-  }
+    .table th, .table td {
+        font-size: 07rem;
+        padding: 8px;
+    }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 2rem;
-  }
+    .title {
+        font-size: 1.8rem;
+    }
 
-  .table th, .table td {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
+    .table th, .table td {
+        font-size: 0.5rem;
+        padding: 6px;
+    }
+
+   
+
+    .loadMore {
+        padding: 6px 12px;
+        font-size: 5.5rem;
+    }
+}
+
+/* Additional Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
 }
