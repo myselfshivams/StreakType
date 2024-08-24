@@ -1,6 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import supabase from '../utils/supabase/client';
 import { v4 as uuidv4 } from 'uuid';
 import styles from '../styles/EndModal.module.css';
@@ -18,6 +19,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
   const [showGraphModal, setShowGraphModal] = useState(false);
 
   const handleShowGraph = () => {
+    toast.info("Showing graph...");
     setShowGraphModal(true);
   };
 
@@ -26,12 +28,13 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
   };
 
   const handleGoHome = () => {
+    toast.warn("Redirecting to home...");
     if (document.fullscreenElement) {
       document.exitFullscreen().catch((err) => {
         console.error("Failed to exit full screen:", err);
       });
     }
-    window.location.href = '/'; 
+    window.location.href = '/';
   };
 
   const handleGenerateCertificate = async () => {
@@ -55,12 +58,19 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
         throw error;
       }
 
+      toast.success("Certificate generated successfully!");
       console.log('Certificate data stored with ID:', documentId);
 
       window.location.href = `/certificate/${documentId}`;
     } catch (error) {
+      toast.error("Failed to generate certificate.");
       console.error('Error storing certificate data:', error);
     }
+  };
+
+  const handleRetry = () => {
+    toast.info("Restarting test...");
+    onRetry();
   };
 
   return (
@@ -90,7 +100,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
           <Button
             variant="contained"
             className={`${styles.button} ${styles.success}`}
-            onClick={onRetry}
+            onClick={handleRetry}
           >
             Start Test
           </Button>
@@ -134,6 +144,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };
