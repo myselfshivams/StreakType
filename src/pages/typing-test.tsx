@@ -1,10 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import StoryDisplay from '../components/typing-test/StoryDisplay';
+import TypingInput from '../components/typing-test/TypingInput';
+import TypingStats from '../components/typing-test/TypingStats';
 import Modal from '../components/EndModal';
 import ExitConfirmationModal from '../components/ExitModal';
-import TypingStatsChart from '../components/TypingStatsChart'; 
+import TypingStatsChart from '../components/TypingStatsChart';
+import Timer from '../components/typing-test/Timer';
+import FullscreenHandler from '../components/typing-test/FullscreenHandler';
 
 const TypingTest = () => {
   const router = useRouter();
@@ -36,30 +41,7 @@ const TypingTest = () => {
     };
 
     fetchStory();
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        router.push('/');
-      }
-    };
-
-    const handleF11 = (event: KeyboardEvent) => {
-      if (event.key === 'F11') {
-        event.preventDefault();
-        document.exitFullscreen?.();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keydown', handleF11);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keydown', handleF11);
-    };
-
-  }, [name, router]);
+  }, [name]);
 
   useEffect(() => {
     let timerDuration = 60;
@@ -121,17 +103,7 @@ const TypingTest = () => {
     }
   }, [userInput, story, showModal]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setUserInput(input);
-    if (startTime === null) {
-      setStartTime(Date.now());
-    }
-    updateWpm(input);
-    updateAccuracy(input);
-  };
-
-  const updateWpm = useCallback((input: string) => {
+  const updateWpm = (input: string) => {
     if (startTime) {
       const elapsed = (Date.now() - startTime) / 60000; // minutes
       const words = input.trim().split(/\s+/).length;
@@ -140,9 +112,9 @@ const TypingTest = () => {
       setWpmData(prev => [...prev, currentWpm]);
       setTimeLabels(prev => [...prev, new Date().toLocaleTimeString()]);
     }
-  }, [startTime]);
+  };
 
-  const updateAccuracy = useCallback((input: string) => {
+  const updateAccuracy = (input: string) => {
     const storyWords = story.trim().split(/\s+/);
     const inputWords = input.trim().split(/\s+/);
     let correctWords = 0;
@@ -156,53 +128,17 @@ const TypingTest = () => {
     const currentAccuracy = (correctWords / storyWords.length) * 100;
     setAccuracy(Math.round(currentAccuracy));
     setAccuracyData(prev => [...prev, Math.round(currentAccuracy)]);
-  }, [story]);
-
-  const renderStory = () => {
-    return story.split('').map((char, index) => {
-      const inputChar = userInput[index] || '';
-      let color = '';
-
-      if (char === inputChar) {
-        color = 'green';
-      } else if (inputChar && !char.startsWith(inputChar)) {
-        color = 'red';
-      }
-
-      return (
-        <span key={index} style={{ color }}>
-          {char}
-        </span>
-      );
-    });
   };
 
-  const enterFullscreen = () => {
-    const element = document.documentElement as any;
-    if (element.requestFullscreen) {
-      element.requestFullscreen();
-    } else if (element.mozRequestFullScreen) { 
-      element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) { 
-      element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen) { 
-      element.msRequestFullscreen();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setUserInput(input);
+    if (startTime === null) {
+      setStartTime(Date.now());
     }
+    updateWpm(input);
+    updateAccuracy(input);
   };
-
-  const handleFullscreenChange = () => {
-    if (!document.fullscreenElement) {
-      router.push('/typing');
-    }
-  };
-
-  useEffect(() => {
-    enterFullscreen();
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-    };
-  }, []);
 
   const handleRetry = () => {
     setUserInput('');
@@ -238,44 +174,33 @@ const TypingTest = () => {
       <Head>
         <title>Typing Test</title>
       </Head>
+      <FullscreenHandler />
       <div className={styles.typingContainer}>
         <h1 className={styles.heading}>Typing Test Assessment</h1>
-        <div className={styles.timer}>Time Left: {timer}s</div>
-        <div className={styles.story}>{renderStory()}</div>
-        <input
-          ref={inputRef}
-          type="text"
+        <Timer timer={timer} />
+        <StoryDisplay story={story} userInput={userInput} />
+        <TypingInput
+          inputRef={inputRef}
           value={userInput}
           onChange={handleInputChange}
-          autoFocus
-          className={styles.inputField}
         />
-        <div className={styles.stats}>
-          <div className={styles.statBox}>
-            <div className={styles.statTitle}>WPM</div>
-            <div className={styles.statValue}>{wpm}</div>
-          </div>
-          <div className={styles.statBox}>
-            <div className={styles.statTitle}>Accuracy</div>
-            <div className={styles.statValue}>{accuracy}%</div>
-          </div>
-        </div>
+        <TypingStats wpm={wpm} accuracy={accuracy} />
         <button className={styles.exitButton} onClick={handleExitConfirmation}>
           Exit
         </button>
         {showModal && name && (
-     <Modal
-     name={name as string}
-     wpm={wpm}
-     accuracy={accuracy}
-     onRetry={handleRetry}
-     onExit={handleExit}
-     graph={
-       <TypingStatsChart
-         wpmData={wpmData}
-         accuracyData={accuracyData}
-         timeLabels={timeLabels}
-       />} 
+          <Modal
+            name={name as string}
+            wpm={wpm}
+            accuracy={accuracy}
+            onRetry={handleRetry}
+            onExit={handleExit}
+            graph={
+              <TypingStatsChart
+                wpmData={wpmData}
+                accuracyData={accuracyData}
+                timeLabels={timeLabels}
+              />} 
           />
         )}
         {showExitModal && (
