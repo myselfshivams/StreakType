@@ -35,12 +35,12 @@
     font-family: 'Teko';
     font-size: 1.8rem;
     font-weight: 700;
-    color: #301550; 
+    color: #ffffff; 
   }
 
 
 .logoText:hover {
-    color: #7300ff;
+    color: #ae00d5;
 }
 
 .menu {
@@ -52,7 +52,7 @@
 
 .menu a {
     font-family: 'Poppins', sans-serif;
-    color: #8000ff;
+    color: #fff;
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: bolder;
@@ -60,7 +60,7 @@
 }
 
 .menu a:hover {
-    color: #280051;
+    color: #ae00d5;
 }
 
 .menuButton {

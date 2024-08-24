@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
       return;
     }
 
-    toast.success('Subscribed to FableFetcher Successfully');
+    toast.success('Subscribed to StreakType Successfully');
     setEmail('');
   };
 
