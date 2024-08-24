@@ -169,22 +169,6 @@ const TypingTest = () => {
     setShowExitModal(false);
   };
 
-
-  const handleGenerateCertificate = () => {
-    const uniqueId = `${name}-${Date.now()}`; // Generate a unique ID
-    router.push({
-      pathname: '/certificate',
-      query: {
-        name,
-        wpm,
-        accuracy,
-        time: timer,
-        date: new Date().toLocaleDateString(),
-        id: uniqueId,
-      },
-    });
-  };
-
   return (
     <div className={styles.fullscreenContainer}>
       <Head>
@@ -216,9 +200,7 @@ const TypingTest = () => {
                 wpmData={wpmData}
                 accuracyData={accuracyData}
                 timeLabels={timeLabels}
-              />
-            }
-            onGenerateCertificate={handleGenerateCertificate}
+              />} 
           />
         )}
         {showExitModal && (
