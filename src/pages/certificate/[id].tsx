@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 import supabase from '../../utils/supabase/server';
 import styles from '../../styles/CertificatePage.module.css';
 import jsPDF from 'jspdf';
@@ -89,6 +90,14 @@ const CertificatePage = ({
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Certificate of Appreciation - {name}</title>
+        <meta name="description" content={`Certificate of Appreciation for ${name} with WPM: ${wpm} and Accuracy: ${accuracy}%`} />
+        <meta property="og:title" content={`Certificate of Appreciation - ${name}`} />
+        <meta property="og:description" content={`Certificate of Appreciation for ${name} with WPM: ${wpm} and Accuracy: ${accuracy}%`} />
+        <meta property="og:image" content="https://streaktype.studex.tech/streaktype.png" />
+        <meta property="og:url" content={`https://streaktype.studex.tech/certificate/${unique_id}`} />
+      </Head>
       <div id="certificate" className={styles.certificate}>
         <div className={styles.header}>
           <h1>Certificate of Appreciation</h1>
@@ -108,14 +117,13 @@ const CertificatePage = ({
             </div>
           </div>
           <div className={styles.text1}>Credential ID: <strong>{unique_id}</strong></div>
-     
         </div>
         <div className={styles.footer}>
           <p>Issued by</p>
           <p>StreakType Portal</p>
         </div>
         <div className={styles.date}>
-        <p>Date:<strong> {date}</strong></p>
+          <p>Date:<strong> {date}</strong></p>
         </div>
       </div>
       <div className={styles.buttons}>

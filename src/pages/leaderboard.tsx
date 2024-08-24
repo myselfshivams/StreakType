@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import styles from '@/styles/Leaderboard.module.css'; 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Head from 'next/head';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -75,6 +76,9 @@ const Leaderboard: React.FC = () => {
 
   return (
     <>
+    <Head>
+        <title>StreakType | Leaderboard</title>
+      </Head>
       <Navbar />
       <div className={styles.bgg}>
         <div className={styles.container}>

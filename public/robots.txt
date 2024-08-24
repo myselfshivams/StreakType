@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://streaktype.studex.tech
+
+# Sitemaps
+Sitemap: https://streaktype.studex.tech/sitemap.xml
