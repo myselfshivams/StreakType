@@ -1,22 +1,30 @@
-/* Leaderboard.module.css */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 50px auto;
-  text-align: center;
-  animation: fadeIn 1s ease-in-out;
+    width: 90%;
+    max-width: 1200px;
+    margin: 80px auto; /* Adjusted margin */
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
+    padding: 5% 2%; /* Adjusted padding */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    background: rgba(20, 20, 30, 0.8); /* Darker semi-transparent background */
 }
 
 .bgg{
-    background: url('/pattern.png') center center no-repeat, linear-gradient(135deg, rgba(45, 45, 58, 0.9) 0%, rgba(26, 26, 34, 0.8) 100%);
+    background: url('/pattern.png') center center no-repeat, 
+    linear-gradient(135deg, rgba(45, 45, 58, 0.9) 0%, rgba(26, 26, 34, 0.8) 100%);
     background-size: cover;
-    background-blend-mode: hard-light;
+    background-blend-mode: overlay;
     background-attachment: fixed;
     transition: all 0.3s ease-in-out;
     height: 100%;
+    padding-top: 7%;
+    backdrop-filter: blur(12px);
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
 
 .title {
@@ -123,3 +131,23 @@
     padding: 8px;
   }
 }
+
+/* Load More Button */
+.loadMore {
+    display: block;
+    margin: 20px auto;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .loadMore:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }

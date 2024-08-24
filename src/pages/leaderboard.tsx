@@ -1,6 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import styles from '@/styles/Leaderboard.module.css'; 
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -8,7 +10,7 @@ const supabase = createClient(
 );
 
 interface Certificate {
-  score: ReactNode;
+  score: number;
   id: string;
   name: string;
   accuracy: number;
@@ -19,6 +21,7 @@ interface Certificate {
 const Leaderboard: React.FC = () => {
   const [data, setData] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [visibleItems, setVisibleItems] = useState<number>(10);
 
   useEffect(() => {
     const fetchLeaderboardData = async () => {
@@ -63,16 +66,23 @@ const Leaderboard: React.FC = () => {
     fetchLeaderboardData();
   }, []);
 
+  const handleLoadMore = () => {
+    setVisibleItems((prevVisibleItems) => prevVisibleItems + 10);
+  };
+
   return (
+    <>
+      <Navbar />
     <div className={styles.bgg}>
     <div className={styles.container}>
-      <h1 className={styles.title}>🏆 Leaderboard - Last Month 🏆</h1>
+      <h1 className={styles.title}>🏆 Leaderboard </h1>
       {loading ? (
         <p className={styles.loading}>Loading...</p>
       ) : (
         data.length === 0 ? (
           <p className={styles.noData}>No data available</p>
         ) : (
+          <>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -95,10 +105,18 @@ const Leaderboard: React.FC = () => {
               ))}
             </tbody>
           </table>
+            {visibleItems < data.length && (
+              <button className={styles.loadMore} onClick={handleLoadMore}>
+                Load More
+              </button>
+            )}
+            </>
         )
       )}
     </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
