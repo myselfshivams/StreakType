@@ -22,30 +22,30 @@ const TermsOfService: FC = () => {
       <div className={styles.bg}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1>Terms of Service</h1>
+          Terms of Service
         </header>
         <main className={styles.mainContent}>
           <section className={styles.section}>
             <h2>Introduction</h2>
-            <p>
+            <p className={styles.textt}>
               Welcome to Streaktype. These Terms of Service ("Terms") govern your use of our platform and services. By accessing or using Streaktype, you agree to comply with and be bound by these Terms.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Account Responsibilities</h2>
-            <p>
+            <p className={styles.textt}>
               You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Use of Services</h2>
-            <p>
+            <p className={styles.textt}>
               You agree to use our services in accordance with all applicable laws and regulations. You shall not engage in any activity that disrupts or interferes with the functionality of our platform.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Prohibited Activities</h2>
-            <p>
+            <p className={styles.textt}>
               You may not use our services to:
             </p>
             <ul>
@@ -57,25 +57,25 @@ const TermsOfService: FC = () => {
           </section>
           <section className={styles.section}>
             <h2>Intellectual Property</h2>
-            <p>
+            <p className={styles.textt}>
               All content and materials provided on our platform are the property of Streaktype or its licensors. You may not use, reproduce, or distribute any content without our express written permission.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Limitation of Liability</h2>
-            <p>
+            <p className={styles.textt}>
               To the fullest extent permitted by law, Streaktype shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Changes to Terms</h2>
-            <p>
+            <p className={styles.textt}>
               We may update these Terms from time to time. Any changes will be posted on this page with an updated effective date. Your continued use of our services constitutes your acceptance of any changes.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Termination</h2>
-            <p>
+            <p className={styles.textt}>
               We reserve the right to terminate or suspend your account and access to our services at our sole discretion, without notice, if you violate these Terms or engage in any prohibited activities.
             </p>
           </section>

@@ -9,7 +9,7 @@ const About: FC = () => {
     <>
 
       <Head>
-        <title>Streaktype - About Us</title>
+        <title>Streaktype | About </title>
         <link rel="icon" href="/streaktype.png" />
         <meta name="description" content="Learn more about Streaktype, the platform that offers a comprehensive typing test experience with features like personalized passages, random text, performance graphs, streak tracking, and certification upon completion." />
         <meta name="keywords" content="typing test, typing certification, WPM graph, typing accuracy, maintain typing streak, random typing passages, personalized typing passages, typing speed, Streaktype, typing practice" />
@@ -22,12 +22,12 @@ const About: FC = () => {
       < Navbar />
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1>About Streaktype</h1>
+          About Streaktype
         </header>
         <main className={styles.mainContent}>
           <section className={styles.section}>
             <h2>Welcome to Streaktype</h2>
-            <p>
+            <p className={styles.textt}>
               Streaktype is dedicated to providing a top-notch typing test experience. Our platform is designed to help you enhance your typing skills through a variety of features and tools tailored for all skill levels.
             </p>
           </section>
@@ -43,7 +43,7 @@ const About: FC = () => {
           </section>
           <section className={styles.section}>
             <h2>Our Mission</h2>
-            <p>
+            <p className={styles.textt}>
               Our mission is to help individuals improve their typing speed and accuracy through an engaging and comprehensive platform. Whether you're a beginner looking to build foundational skills or an experienced typist aiming to refine your speed, Streaktype is here to support your goals.
             </p>
           </section>

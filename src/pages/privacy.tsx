@@ -22,18 +22,18 @@ const Privacy: FC = () => {
       <div className={styles.bg}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1>Privacy Policy</h1>
+          Privacy Policy
         </header>
         <main className={styles.mainContent}>
           <section className={styles.section}>
             <h2>Introduction</h2>
-            <p>
+            <p className={styles.textt}>
               At Streaktype, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Information We Collect</h2>
-            <p>
+            <p className={styles.textt}>
               We collect various types of information to provide and improve our services. This includes:
             </p>
             <ul>
@@ -44,7 +44,7 @@ const Privacy: FC = () => {
           </section>
           <section className={styles.section}>
             <h2>How We Use Your Information</h2>
-            <p>
+            <p className={styles.textt}>
               We use the collected information to:
             </p>
             <ul>
@@ -56,19 +56,19 @@ const Privacy: FC = () => {
           </section>
           <section className={styles.section}>
             <h2>Data Security</h2>
-            <p>
+            <p className={styles.textt}>
               We implement various security measures to protect your personal information from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet or electronic storage is 100% secure.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Third-Party Links</h2>
-            <p>
+            <p className={styles.textt}>
               Our platform may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these third parties.
             </p>
           </section>
           <section className={styles.section}>
             <h2>Changes to This Privacy Policy</h2>
-            <p>
+            <p className={styles.textt}>
               We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.
             </p>
           </section>
