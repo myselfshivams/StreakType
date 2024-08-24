@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Modal from '../components/EndModal';
 import ExitConfirmationModal from '../components/ExitModal';
-import TypingStatsChart from '../components/TypingStatsChart'; // Import the new chart component
+import TypingStatsChart from '../components/TypingStatsChart'; 
 
 const TypingTest = () => {
   const router = useRouter();
@@ -275,7 +275,7 @@ const TypingTest = () => {
          wpmData={wpmData}
          accuracyData={accuracyData}
          timeLabels={timeLabels}
-       />} // Add the graph component here
+       />} 
           />
         )}
         {showExitModal && (

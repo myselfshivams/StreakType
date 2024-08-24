@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Card, CardContent, Typography } from '@mui/material';
-import TypingStatsChart from './TypingStatsChart'; // Import the TypingStatsChart component
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styles from '../styles/EndModal.module.css';
 
 interface ModalProps {
@@ -15,6 +15,7 @@ interface ModalProps {
 const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, graph }) => {
   const [showGraphModal, setShowGraphModal] = useState(false);
 
+
   const handleShowGraph = () => {
     setShowGraphModal(true);
   };
@@ -23,13 +24,22 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
     setShowGraphModal(false);
   };
 
+  const handleGoHome = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch((err) => {
+        console.error("Failed to exit full screen:", err);
+      });
+    }
+    window.history.back(); 
+  };
+
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Hi, {name}!
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="h6" gutterBottom>
           Your Current Typing Status is:
         </Typography>
         <div className={styles.statsContainer}>
@@ -49,55 +59,22 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
         <div className={styles.modalActions}>
           <Button
             variant="contained"
-            color="success"
+            className={`${styles.button} ${styles.success}`}
             onClick={onRetry}
-            sx={{
-              backgroundColor: '#4caf50',
-              color: '#fff',
-              borderRadius: '8px',
-              '&:hover': {
-                backgroundColor: '#45a049',
-              },
-              '&:active': {
-                backgroundColor: '#388e3c',
-              },
-            }}
           >
             Start Test
           </Button>
           <Button
             variant="contained"
-            color="error"
-            onClick={onExit}
-            sx={{
-              backgroundColor: '#f44336',
-              color: '#fff',
-              borderRadius: '8px',
-              '&:hover': {
-                backgroundColor: '#e53935',
-              },
-              '&:active': {
-                backgroundColor: '#c62828',
-              },
-            }}
+            className={`${styles.button} ${styles.error}`}
+            onClick={handleGoHome} // Use handleGoHome function
           >
             Go to Home
           </Button>
           <Button
             variant="contained"
-            color="primary"
+            className={`${styles.button} ${styles.primary}`}
             onClick={handleShowGraph}
-            sx={{
-              backgroundColor: '#2196f3',
-              color: '#fff',
-              borderRadius: '8px',
-              '&:hover': {
-                backgroundColor: '#1976d2',
-              },
-              '&:active': {
-                backgroundColor: '#1565c0',
-              },
-            }}
           >
             Show Graph
           </Button>
@@ -111,19 +88,8 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
               {graph}
               <Button
                 variant="contained"
-                color="secondary"
+                className={`${styles.button} ${styles.secondary}`}
                 onClick={handleCloseGraphModal}
-                sx={{
-                  backgroundColor: '#f50057',
-                  color: '#fff',
-                  borderRadius: '8px',
-                  '&:hover': {
-                    backgroundColor: '#c51162',
-                  },
-                  '&:active': {
-                    backgroundColor: '#aa00ff',
-                  },
-                }}
               >
                 Close
               </Button>
