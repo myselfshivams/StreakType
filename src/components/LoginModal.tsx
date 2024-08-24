@@ -4,6 +4,8 @@ import { FaGithub } from 'react-icons/fa';
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 import ForgotPasswordModal from "./ForgotModal"; 
 import ReCAPTCHA from "react-google-recaptcha"; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface ModalProps {
   isOpen: boolean;
@@ -23,12 +25,11 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
 
   const handleGoogleSuccess = (response: CredentialResponse) => {
     console.log('Google Sign-In success:', response);
-
   };
 
   const handleGoogleError = (error: any) => {
     console.log('Google Sign-In error:', error);
-  
+    toast.error('Google Sign-In failed. Please try again later.');
   };
 
   const handleCaptchaChange = (value: string | null) => {
@@ -41,6 +42,16 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
 
   const closeForgotPassword = () => {
     setForgotPasswordOpen(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+   
+      throw new Error('Too Many Requests'); // Simulated error
+    } catch (error) {
+      toast.error('Too Many Requests. Please try again later.');
+    }
   };
 
   return (
@@ -62,7 +73,7 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
               Sign Up
             </button>
           </div>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             {isSignIn ? (
               <>
                 <input className={styles.inputField} type="email" placeholder="Email" required />
@@ -94,7 +105,6 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
                 <button 
                   className={styles.submitButton} 
                   type="submit" 
-
                   disabled={!captchaValue} 
                 >
                   Sign Up
@@ -113,13 +123,14 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
             <div className={styles.googleButton}>
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
-            
+               
               />
             </div>
           </form>
         </div>
       </div>
       <ForgotPasswordModal isOpen={forgotPasswordOpen} onClose={closeForgotPassword} />
+      <ToastContainer position="top-right" theme="dark" autoClose={5000} hideProgressBar={false} closeOnClick pauseOnHover draggable  />
     </>
   );
 };
