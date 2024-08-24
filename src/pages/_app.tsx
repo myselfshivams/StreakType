@@ -68,7 +68,7 @@ export default function App({ Component, pageProps }: AppProps) {
 <meta name="keywords" content="typing test, typing certification, WPM graph, typing accuracy, maintain typing streak, random typing passages, personalized typing passages, typing speed, Streaktype, typing practice" />
 <meta property="og:title" content="Streaktype - Typing Test and Certification" />
 <meta property="og:description" content="Streaktype provides a dynamic typing test platform with features like personalized and random passages, performance tracking with graphs, streak maintenance, and certification. Perfect your typing skills and monitor your progress." />
-<meta property="og:image" content="https://streaktype.studex.tech/streaktype" />
+<meta property="og:image" content="https://streaktype.studex.tech/streaktype.png" />
 <meta property="og:url" content="https://streaktype.studex.tech" />
 <link rel="canonical" href="https://streaktype.studex.tech" />
 
