@@ -12,7 +12,8 @@
 }
 
 .modalContent {
-  background: #fff;
+color:rgb(255, 255, 255);
+  background: #000;
   padding: 24px;
   border-radius: 8px;
   width: 90%;
@@ -23,7 +24,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  backdrop-filter: blur(90px); /* Applies the blur effect */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: subtle border to enhance the glass effect */
 }
+
 
 .closeButton {
   position: absolute;
@@ -33,7 +37,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  color: #333;
+  color: #ffffff;
   transition: color 0.3s ease;
 }
 
@@ -45,6 +49,7 @@
   position: relative;
   margin: 16px 0;
   width: 100%;
+  color:#fff
 }
 
 .inputField {
@@ -56,10 +61,12 @@
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
+  background: rgba(0, 0, 0, 0.3); 
+  color:#fff
 }
 
 .inputField:focus {
-  border-color: #6200ea;
+  border-color: #ae00d5;
 }
 
 .inputLabel {
@@ -67,7 +74,7 @@
   top: 12px;
   left: 12px;
   font-size: 16px;
-  color: #666;
+  color: #ffffff;
   transition: 0.2s ease all;
   pointer-events: none;
 }
@@ -77,9 +84,10 @@
   top: -8px;
   left: 12px;
   font-size: 12px;
-  color: #6200ea;
-  background: #fff;
+  color: #ae00d5;
+  background: #000;
   padding: 0 4px;
+ 
 }
 
 .buttonContainer {
@@ -94,7 +102,7 @@
   border-radius: 24px;
   cursor: pointer;
   border: 0;
-  background-color: #6200ea;
+  background-color: #ae00d5;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -105,12 +113,25 @@
 }
 
 .submitButton:hover {
-  background-color: #3700b3;
+  background-color: #ba33d8;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .submitButton:active {
-  background-color: #3700b3;
+  background-color: #ba33d8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transform: translateY(2px);
+}
+
+.pp {
+  color:rgb(175, 175, 175);
+  line-height: 1.6;
+}
+
+.code {
+  font-family: 'Courier New', monospace;
+  background: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #333;
 }

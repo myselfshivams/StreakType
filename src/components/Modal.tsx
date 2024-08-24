@@ -35,6 +35,14 @@ const Modal: React.FC<ModalProps> = ({ onClose, onProceed, step, userName, diffi
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose]);
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'; 
+
+    return () => {
+      document.body.style.overflow = 'unset'; 
+    };
+  }, []);
+
   return (
     <div className={styles.modalBackdrop}>
       <div className={styles.modalContent} ref={modalContentRef}>
@@ -44,15 +52,15 @@ const Modal: React.FC<ModalProps> = ({ onClose, onProceed, step, userName, diffi
         {step === 1 && (
           <>
             <h2>Welcome to the Typing Test!</h2>
-            <p>
+            <p className={styles.pp}>
               Ready to test your typing skills? This test will challenge your speed and accuracy with a 1-minute timer.
             </p>
-            <p>
+            <p className={styles.pp}>
               <strong>Instructions:</strong><br />
               1. Type the text as quickly and accurately as you can.<br />
               2. Your Words Per Minute (WPM) and accuracy will be displayed in real-time.<br />
               3. Choose the difficulty mode that best matches your current typing skills to get the most accurate assessment.<br />
-              4. The test screen will occupy the full screen. Use <code>F11</code> to toggle full-screen mode or <code>ESC</code> to exit.
+              4. The test screen will occupy the full screen. Use <code className={styles.code}>F11</code> to toggle full-screen mode or <code className={styles.code}>ESC</code> to exit.
             </p>
             <div className={styles.checkboxWrapper}>
               <input
