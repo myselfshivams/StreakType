@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     console.log(`Fetched data for unique_id: ${id}`, data);
 
-    const formattedDate = new Date(data.date).toLocaleString();
+    const formattedDate = new Date(data.date).toLocaleDateString();
 
     return {
       props: {
@@ -81,18 +81,28 @@ const CertificatePage = ({
   return (
     <div className={styles.container}>
       <div id="certificate" className={styles.certificate}>
-        <h1>Certificate</h1>
-        <p>Unique ID: {unique_id}</p>
-        <p>Name: {name}</p>
-        <p>WPM: {wpm}</p>
-        <p>Accuracy: {accuracy}</p>
-        <p>Date: {date}</p>
+        <div className={styles.header}>
+          <h1>Certificate of Typing Proficiency</h1>
+          <h2>Certificate of Appreciation</h2>
+        </div>
+        <div className={styles.body}>
+          <p className={styles.text}>This is to certify that</p>
+          <h3 className={styles.name}>{name}</h3>
+          <p className={styles.text}>has successfully completed the typing test with the following results:</p>
+          <p className={styles.text}>Words Per Minute (WPM): <strong>{wpm}</strong></p>
+          <p className={styles.text}>Accuracy: <strong>{accuracy}%</strong></p>
+          <p className={styles.text}>Credential ID: <strong>{unique_id}</strong></p>
+          <p className={styles.text}>Date: <strong>{date}</strong></p>
+        </div>
+        <div className={styles.footer}>
+          <p>Issued by</p>
+          <p>StreakType Portal</p>
+        </div>
       </div>
       <div className={styles.buttons}>
         <button className={styles.button} onClick={handleDownloadPDF}>
           Download PDF
         </button>
-       
       </div>
     </div>
   );
