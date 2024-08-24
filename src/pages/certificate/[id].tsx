@@ -94,17 +94,28 @@ const CertificatePage = ({
           <h1>Certificate of Appreciation</h1>
         </div>
         <div className={styles.body}>
-          <p className={styles.text}>This is to certify that</p>
-          <h3 className={styles.name}>{name}</h3>
-          <p className={styles.text}>has successfully completed the StreakType typing test with the following results:</p>
-          <p className={styles.text}>Words Per Minute (WPM): <strong>{wpm}</strong></p>
-          <p className={styles.text}>Accuracy: <strong>{accuracy}%</strong></p>
-          <p className={styles.text}>Credential ID: <strong>{unique_id}</strong></p>
-          <p className={styles.text}>Date: <strong>{date}</strong></p>
+          <div className={styles.nameContainer}>
+            <span className={styles.text}>This is to certify that</span>
+            <h3 className={styles.name}>{name}</h3>
+            <span className={styles.text}>has successfully completed the StreakType typing test with the following results:</span>
+          </div>
+          <div className={styles.results}>
+            <div className={styles.resultBox}>
+              Words Per Minute (WPM): <strong>{wpm}</strong>
+            </div>
+            <div className={styles.resultBox}>
+              Accuracy: <strong>{accuracy}%</strong>
+            </div>
+          </div>
+          <div className={styles.text1}>Credential ID: <strong>{unique_id}</strong></div>
+  
         </div>
         <div className={styles.footer}>
           <p>Issued by</p>
           <p>StreakType Portal</p>
+        </div>
+        <div className={styles.date}>
+          <p>Date:<strong> {date}</strong></p>
         </div>
       </div>
       <div className={styles.buttons}>

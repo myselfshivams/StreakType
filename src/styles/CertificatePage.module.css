@@ -10,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
-    background: #f4f4f4;
+    background: #ffffff;
     min-height: 100vh;
   }
   
@@ -20,8 +20,8 @@
     padding: 2rem;
     background: #ffffff;
     background-image: url('/assets/border.png');
-    background-size: cover; 
-    background-position: center; 
+    background-size: cover;
+    background-position: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -31,7 +31,7 @@
   .header {
     margin-top: 5%;
     text-align: center;
-    margin-bottom: 2rem;
+   
   }
   
   .header h1 {
@@ -62,11 +62,37 @@
     font-weight: bold;
     margin: 1rem 0;
   }
-
-  
   
   .text {
     font-size: 1.5rem;
+  }
+
+  .text1 {
+    margin-top: 2%;
+    font-size: 1rem;
+  }
+
+  .date {
+    font-size: 1.5rem;
+    margin-top: 5%;
+  }
+  
+  .results {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding: 0 2rem;
+  }
+  
+  .resultBox {
+    
+    background: #fff;
+    border: 3px solid #000000;
+    padding: 20px 40px;
+    border-radius: 10px;
+    flex: 1;
+    text-align: center;
+    margin-left:5%;
   }
   
   .footer {
@@ -75,8 +101,9 @@
   }
   
   .footer p {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin: 0.5rem 0;
+    font-weight: bolder;
   }
   
   .buttons {
@@ -97,4 +124,7 @@
   .button:hover {
     background-color: #005bb5;
   }
+
+
+  
   
