@@ -4,18 +4,18 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import styles from '@/styles/Footer.module.css';
-import { getStreak } from '../utils/streak'; // Import the streak function
+import { getStreak } from '../utils/streak'; 
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [streak, setStreak] = useState<number>(0);
 
   useEffect(() => {
-    // Set the streak value when component mounts
+ 
     setStreak(getStreak());
   }, []);
 
-  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,8 +26,25 @@ const Footer: React.FC = () => {
       return;
     }
 
-    toast.success('Subscribed to StreakType Successfully');
-    setEmail('');
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        toast.success('Subscribed to StreakType Successfully');
+        setEmail('');
+      } else {
+        const { message } = await response.json();
+        toast.error(message || 'Failed to subscribe');
+      }
+    } catch (error) {
+      toast.error('An error occurred');
+    }
   };
 
   return (
