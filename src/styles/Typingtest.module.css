@@ -4,20 +4,21 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #121212; /* Dark background */
   font-family: 'Roboto', sans-serif;
-  position: relative; /* Allows absolute positioning of child elements */
+  position: relative;
 }
 
-/* Typing container */
+
 .typingContainer {
   width: 80%;
   max-width: 900px;
   padding: 20px;
-  background: #1e1e1e; /* Darker container background */
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
+  backdrop-filter: blur(3px); 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 /* Heading */
@@ -33,13 +34,13 @@
 .timer {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ff4081; /* Neon pink color */
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  color: #ff4081;
+  background: rgba(255, 255, 255, 0.1);
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-shadow: 0 0 6px rgba(255, 64, 129, 0.6); /* Glowing effect */
+  text-shadow: 0 0 6px rgba(255, 64, 129, 0.6);
 }
 
 /* Story */
@@ -49,7 +50,7 @@
   text-align: left;
   font-size: 1rem;
   line-height: 1.5;
-  color: #e0e0e0; /* Light text color for dark mode */
+  color: #e0e0e0;
 }
 
 /* Input field */
@@ -57,32 +58,33 @@
   width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #333; /* Dark border */
+  border: 1px solid #333;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  background: #1e1e1e; /* Dark background */
-  color: #e0e0e0; /* Light text color */
+  background: #1e1e1e; 
+  color: #e0e0e0; 
 }
 
-/* Stats */
+
 .stats {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
 }
 
-/* Stat box */
+
 .statBox {
+  background: rgba(0, 0, 0, 0.3);
   flex: 1;
   padding: 15px;
-  background: #2c2c2c; /* Darker background for stats */
+  backdrop-filter: blur(1px); 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   margin: 0 10px;
-  color: #e0e0e0; /* Light text color */
+  color: #e0e0e0;
 }
 
-/* Stat title */
+
 .statTitle {
   font-size: 1.2rem;
   font-weight: bold;
