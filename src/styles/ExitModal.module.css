@@ -1,4 +1,4 @@
-/* EndModal.module.css */
+
 
 .modal {
     position: fixed;
@@ -10,11 +10,16 @@
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(50px);
     z-index: 1000;
   }
   
   .modalContent {
-    background: #fff;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px); 
     padding: 20px;
     border-radius: 8px;
     text-align: center;
@@ -71,15 +76,15 @@
   }
   
   .confirmButton:hover, .cancelButton:hover {
-    background: rgba(219, 0, 0, 0.8); /* Darker shade for hover effect */
+    background: rgba(219, 0, 0, 0.8); 
   }
 
   .cancelButton:hover {
-    background: rgba(166, 166, 166, 0.8); /* Darker shade for hover effect */
+    background: rgba(166, 166, 166, 0.8); 
   }
 
   
   .confirmButton:active, .cancelButton:active {
-    transform: scale(0.95); /* Slight scaling effect on click */
+    transform: scale(0.95); 
   }
   
