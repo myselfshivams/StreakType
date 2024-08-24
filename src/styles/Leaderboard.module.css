@@ -1,0 +1,125 @@
+/* Leaderboard.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.bgg{
+    background: url('/pattern.png') center center no-repeat, linear-gradient(135deg, rgba(45, 45, 58, 0.9) 0%, rgba(26, 26, 34, 0.8) 100%);
+    background-size: cover;
+    background-blend-mode: hard-light;
+    background-attachment: fixed;
+    transition: all 0.3s ease-in-out;
+    height: 100%;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px var(--secondary-color);
+}
+
+.table {
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+  background: var(--table-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.table th, .table td {
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.table th {
+  background: var(--primary-color);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+  background: var(--table-hover);
+  cursor: pointer;
+}
+
+.topRank {
+  animation: bounce 1s ease infinite alternate;
+}
+
+.topRank:nth-child(1) td {
+  background: var(--gold-color);
+  color: black;
+  font-weight: 600;
+}
+
+.topRank:nth-child(2) td {
+  background: var(--silver-color);
+  color: black;
+  font-weight: 500;
+}
+
+.topRank:nth-child(3) td {
+  background: var(--bronze-color);
+  color: black;
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+.loading {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  animation: fadeIn 1.5s ease infinite alternate;
+}
+
+.noData {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .table th, .table td {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .table th, .table td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}

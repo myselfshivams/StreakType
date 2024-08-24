@@ -64,13 +64,14 @@ const Leaderboard: React.FC = () => {
   }, []);
 
   return (
+    <div className={styles.bgg}>
     <div className={styles.container}>
-      <h1>Leaderboard - Last Month</h1>
+      <h1 className={styles.title}>🏆 Leaderboard - Last Month 🏆</h1>
       {loading ? (
-        <p>Loading...</p>
+        <p className={styles.loading}>Loading...</p>
       ) : (
         data.length === 0 ? (
-          <p>No data available</p>
+          <p className={styles.noData}>No data available</p>
         ) : (
           <table className={styles.table}>
             <thead>
@@ -84,11 +85,11 @@ const Leaderboard: React.FC = () => {
             </thead>
             <tbody>
               {data.map((item, index) => (
-                <tr key={item.id}>
+                <tr key={item.id} className={`${styles.row} ${index < 3 ? styles.topRank : ''}`}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
-                  <td>{item.accuracy}</td>
-                  <td>{item.wpm}</td>
+                  <td>{item.accuracy}%</td>
+                  <td>{item.wpm} WPM</td>
                   <td>{item.score}</td> 
                 </tr>
               ))}
@@ -96,6 +97,7 @@ const Leaderboard: React.FC = () => {
           </table>
         )
       )}
+    </div>
     </div>
   );
 };

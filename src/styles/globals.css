@@ -65,4 +65,16 @@ html, body {
     padding: 0.25rem;
     border-radius: 4px;
   }
+
+  :root {
+    --primary-color: #ffbe0b;
+    --secondary-color: #fb5607;
+    --background-gradient: linear-gradient(135deg, #833ab4, #fcb045, #fd1d1d);
+    --table-bg: rgba(255, 255, 255, 0.1);
+    --table-hover: rgba(255, 255, 255, 0.3);
+    --text-color: #ffffff;
+    --gold-color: #f1c40f;
+    --silver-color: #bdc3c7;
+    --bronze-color: #cd7f32;
+  }
   
