@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'; // Import the default styles
 import styles from '@/styles/Leaderboard.module.css'; 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -34,7 +36,7 @@ const Leaderboard: React.FC = () => {
       try {
         const { data: responseData, error } = await supabase
           .from('certificates')  
-          .select('*')
+          .select('name, accuracy, wpm')  // Select only the necessary columns
           .gte('wpm', 0)
           .lte('wpm', 120)
           .gte('date', oneMonthAgo) 
@@ -55,19 +57,25 @@ const Leaderboard: React.FC = () => {
           ...item,
           score: item.wpm + item.accuracy  
         })).sort((a, b) => b.score - a.score);  
-
+        
         // Create a map to store the highest score for each user
         const uniqueDataMap = new Map<string, Certificate>();
-
+        
         rankedData.forEach(item => {
+          const certificate: Certificate = {
+            id: '',
+            date: '',
+            ...item
+          };
+        
           if (!uniqueDataMap.has(item.name) || uniqueDataMap.get(item.name)!.score < item.score) {
-            uniqueDataMap.set(item.name, item);
+            uniqueDataMap.set(item.name, certificate);
           }
         });
-
+        
         // Convert the map values to an array
         const uniqueData = Array.from(uniqueDataMap.values());
-
+        
         setData(uniqueData || []);
       } catch (error) {
         console.error('Unexpected error:', error);
@@ -96,7 +104,9 @@ const Leaderboard: React.FC = () => {
         <div className={styles.container}>
           <h1 className={styles.title}>🏆 Leaderboard</h1>
           {loading ? (
-            <p className={styles.loading}>Loading...</p>
+            <div className={styles.loadingContainer}>
+              <Skeleton count={10} height={50} width="100%" />
+            </div>
           ) : (
             data.length === 0 ? (
               <p className={styles.noData}>No data available</p>

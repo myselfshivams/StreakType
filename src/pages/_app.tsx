@@ -19,7 +19,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    // Update streak on page load
     updateStreak();
 
     const handleVisibilityChange = () => {
@@ -53,9 +52,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (isMobile) {
-      setShowModal(true); // Show the mobile warning modal
+      setShowModal(true); 
     } else {
-      setShowModal(false); // Hide the modal if not mobile
+      setShowModal(false);
     }
   }, [isMobile]);
 
@@ -75,7 +74,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </Head>
 
         <ToastContainer />
-        {showModal && <MobileWarningModal />} {/* Show the modal if on a mobile device */}
+        {showModal && <MobileWarningModal />} 
         <Component {...pageProps} />
       </GoogleOAuthProvider>
     </AuthProvider>
