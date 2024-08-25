@@ -75,14 +75,14 @@ const CertificatePage = ({
 
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
-        // Add small URL text at the bottom left corner
+      
         const url = `https://streaktype.studex.tech/certificate/${unique_id}`;
         pdf.setFontSize(8);
         pdf.text('', 10, pdfHeight - 10);
         pdf.text(url, 10, pdfHeight - 3);
 
-        // Save PDF with a filename including the user's name
-        const filename = `Certificate-${name.replace(/\s+/g, '-')}.pdf`; // Replace spaces with hyphens for filename
+     
+        const filename = `Certificate-${name.replace(/\s+/g, '-')}.pdf`;
         pdf.save(filename);
       });
     }

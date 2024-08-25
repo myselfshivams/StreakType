@@ -38,7 +38,7 @@ const Leaderboard: React.FC = () => {
           .from('certificates')  
           .select('name, accuracy, wpm')  // Select only the necessary columns
           .gte('wpm', 0)
-          .lte('wpm', 120)
+          .lte('wpm', 100)
           .gte('date', oneMonthAgo) 
           .order('wpm', { ascending: false })  
           .order('accuracy', { ascending: false });  
