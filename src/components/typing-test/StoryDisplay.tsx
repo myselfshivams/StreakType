@@ -13,10 +13,14 @@ const StoryDisplay: React.FC<StoryDisplayProps> = ({ story, userInput }) => {
         const inputChar = userInput[index] || '';
         let color = '';
 
-        if (char === inputChar) {
-          color = 'green'; // Correct character
-        } else if (inputChar && !char.startsWith(inputChar)) {
-          color = 'red'; // Incorrect character
+        if (index < userInput.length) {
+          if (char === inputChar) {
+            color = 'green'; // Correct character
+          } else {
+            color = 'red'; // Incorrect character
+          }
+        } else {
+          color = ''; // Characters not yet typed
         }
 
         return (

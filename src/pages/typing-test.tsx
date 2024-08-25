@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/Typingtest.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import StoryDisplay from '../components/typing-test/StoryDisplay';
-import TypingInput from '../components/typing-test/TypingInput';
 import TypingStats from '../components/typing-test/TypingStats';
 import Modal from '../components/EndModal';
 import ExitConfirmationModal from '../components/ExitModal';
@@ -25,7 +24,6 @@ const TypingTest = () => {
   const [wpmData, setWpmData] = useState<number[]>([]);
   const [accuracyData, setAccuracyData] = useState<number[]>([]);
   const [timeLabels, setTimeLabels] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const fetchStory = async () => {
@@ -103,6 +101,25 @@ const TypingTest = () => {
     }
   }, [userInput, story, showModal]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key.length === 1 && /^[a-zA-Z\s]$/.test(event.key)) { // Only consider printable characters and spaces
+        setUserInput(prev => prev + event.key);
+        if (startTime === null) {
+          setStartTime(Date.now());
+        }
+        updateWpm(userInput + event.key);
+        updateAccuracy(userInput + event.key);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [userInput, startTime]);
+
   const updateWpm = (input: string) => {
     if (startTime) {
       const elapsed = (Date.now() - startTime) / 60000; // minutes
@@ -116,29 +133,16 @@ const TypingTest = () => {
 
   const updateAccuracy = (input: string) => {
     let correctChars = 0;
-  
+
     for (let i = 0; i < input.length; i++) {
       if (input[i] === story[i]) {
         correctChars++;
       }
     }
-  
+
     const currentAccuracy = (correctChars / input.length) * 100;
     setAccuracy(input.length === 0 ? 100 : Math.round(currentAccuracy)); // Ensure accuracy is 100% when input is empty
     setAccuracyData(prev => [...prev, Math.round(currentAccuracy)]);
-  };
-  
-
-
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setUserInput(input);
-    if (startTime === null) {
-      setStartTime(Date.now());
-    }
-    updateWpm(input);
-    updateAccuracy(input);
   };
 
   const handleRetry = () => {
@@ -150,7 +154,6 @@ const TypingTest = () => {
     setAccuracyData([]);
     setTimeLabels([]);
     setShowModal(false);
-    inputRef.current?.focus();
   };
 
   const handleExit = () => {
@@ -180,11 +183,6 @@ const TypingTest = () => {
         <h1 className={styles.heading}>Typing Test Assessment</h1>
         <Timer timer={timer} />
         <StoryDisplay story={story} userInput={userInput} />
-        <TypingInput
-          inputRef={inputRef}
-          value={userInput}
-          onChange={handleInputChange}
-        />
         <TypingStats wpm={wpm} accuracy={accuracy} />
         <button className={styles.exitButton} onClick={handleExitConfirmation}>
           Exit
