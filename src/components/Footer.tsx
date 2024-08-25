@@ -9,10 +9,27 @@ import { getStreak } from '../utils/streak';
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [streak, setStreak] = useState<number>(0);
+  const [visitorCount, setVisitorCount] = useState<number>(0);
 
   useEffect(() => {
- 
     setStreak(getStreak());
+
+    // Fetch visitor count from the API
+    const fetchVisitorCount = async () => {
+      try {
+        const response = await fetch('/api/visitor-count');
+        if (response.ok) {
+          const data = await response.json();
+          setVisitorCount(data.count);
+        } else {
+          toast.error('Failed to load visitor count');
+        }
+      } catch (error) {
+        toast.error('An error occurred while fetching visitor count');
+      }
+    };
+
+    fetchVisitorCount();
   }, []);
 
   const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,6 +80,7 @@ const Footer: React.FC = () => {
               <FaGithub className={styles.icon} />
             </a>
           </div>
+        
         </div>
 
         <div className={styles.pageColumn}>
@@ -87,21 +105,28 @@ const Footer: React.FC = () => {
             />
             <button type="submit">Submit</button>
           </form>
+      
         </div>
+      
       </div>
+    
 
       <div className={styles.bottomSection}>
+       
         <div className={styles.copyright}>
-          <p>&copy; {new Date().getFullYear()} All rights reserved.</p>
+          <p className={styles.rights}>&copy; {new Date().getFullYear()} All rights reserved.</p>
         </div>
+
+        <div className={styles.visitorCount}>
+          <p className={styles.visitText}>Total Visitors: {visitorCount}</p>
+        </div>
+
         <div className={styles.privacyLinks}>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
         </div>
-      
       </div>
 
-     
       <a href="#streak" className={styles.streakButton} aria-label="Streak">
         <FaFire className={styles.fireIcon} />
         <span className={styles.streakNumber}>{streak}</span>

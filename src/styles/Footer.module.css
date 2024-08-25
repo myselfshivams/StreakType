@@ -253,3 +253,57 @@
   font-size: 24px; /* Adjust size as needed */
   margin-left: 4px;
 }
+
+.rights {
+  font-size: 14px;
+  color: #ffffff;
+  margin-right: 20px;
+}
+
+.visitorCount {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-left: 5%;
+  margin-top:1%;
+  padding: 5px 5px;
+  background: linear-gradient(135deg, #a600ff, #f200ff); 
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+  border: 2px solid rgba(255, 255, 255, 0.3); 
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out; 
+}
+
+.visitorCount::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0.5;
+  transform: rotate(45deg);
+  transition: transform 0.5s ease-in-out;
+}
+
+.visitorCount:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); 
+}
+
+.visitorCount:hover::before {
+  transform: rotate(90deg);
+}
+
+.visitorCount span {
+  font-size: 2rem; 
+  color: #ffffff;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
+
+
