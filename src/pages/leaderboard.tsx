@@ -56,7 +56,19 @@ const Leaderboard: React.FC = () => {
           score: item.wpm + item.accuracy  
         })).sort((a, b) => b.score - a.score);  
 
-        setData(rankedData || []);
+        // Create a map to store the highest score for each user
+        const uniqueDataMap = new Map<string, Certificate>();
+
+        rankedData.forEach(item => {
+          if (!uniqueDataMap.has(item.name) || uniqueDataMap.get(item.name)!.score < item.score) {
+            uniqueDataMap.set(item.name, item);
+          }
+        });
+
+        // Convert the map values to an array
+        const uniqueData = Array.from(uniqueDataMap.values());
+
+        setData(uniqueData || []);
       } catch (error) {
         console.error('Unexpected error:', error);
       } finally {
@@ -69,7 +81,7 @@ const Leaderboard: React.FC = () => {
 
   const handleLoadMore = () => {
     setVisibleItems((prevVisibleItems) => {
-      const newVisibleItems = prevVisibleItems + 1;
+      const newVisibleItems = prevVisibleItems + 5;
       return newVisibleItems;
     });
   };
