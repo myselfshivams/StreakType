@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
 
       <div className={styles.bottomSection}>
         <div className={styles.copyright}>
-          <p>&copy; {new Date().getFullYear()} All rights reserved.</p>
+          <p className={styles.rights}>&copy; {new Date().getFullYear()} All rights reserved.</p>
         </div>
         <div className={styles.privacyLinks}>
           <Link href="/privacy">Privacy Policy</Link>
