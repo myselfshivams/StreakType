@@ -56,15 +56,20 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
   };
 
   const handleGenerateCertificate = async () => {
+    if (wpm === 0) {
+      toast.error("Start a Test before generating certificate.");
+      return;
+    }
+  
     const documentId = uuidv4(); // Generate a unique ID for the document
     const date = new Date().toISOString(); // Current date and time
-
+  
     // Gather additional data
     const deviceType = navigator.userAgent;
     const deviceMemory = (navigator as any).deviceMemory || 'Unknown';
     const screenWidth = window.screen.width || 'Unknown';
     const screenHeight = window.screen.height || 'Unknown';
-
+  
     let batteryLevel = 'Unknown';
     if ((navigator as any).getBattery) {
       try {
@@ -74,7 +79,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
         console.error("Error fetching battery level:", error);
       }
     }
-
+  
     try {
       const { data, error } = await supabase
         .from('certificates')
@@ -94,20 +99,21 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
             ip_address: ipAddress
           }
         ]);
-
+  
       if (error) {
         throw error;
       }
-
-      toast.success("Certificate generated successfully!");
+  
+      toast.success("Genearting certificate...");
       console.log('Certificate data stored with ID:', documentId);
-
+  
       window.location.href = `/certificate/${documentId}`;
     } catch (error) {
       toast.error("Failed to generate certificate.");
       console.error('Error storing certificate data:', error);
     }
   };
+  
 
   const handleRetry = () => {
     toast.info("Restarting test...");
