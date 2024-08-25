@@ -17,7 +17,7 @@ const Navbar: FC = () => {
     <>
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-          <span className={styles.logoText}>StreakType</span>
+        <Link href="/"> <span className={styles.logoText}>StreakType</span></Link>
         </div>
         <button onClick={toggleMenu} className={styles.menuButton}>
           ☰

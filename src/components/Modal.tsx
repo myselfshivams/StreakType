@@ -139,7 +139,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onProceed, step, userName, diffi
                 />
               </div>
               <p className={styles.fullScreenReminder}>
-                If you exit full-screen mode, the test will end.
+                * If you exit full-screen mode, the test will end.
               </p>
               <button onClick={handleProceed} className={styles.submitButton} disabled={!captchaVerified}>
                 Start Test
