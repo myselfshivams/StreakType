@@ -103,13 +103,21 @@ const TypingTest = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key.length === 1 && /^[a-zA-Z\s]$/.test(event.key)) { // Only consider printable characters and spaces
-        setUserInput(prev => prev + event.key);
+      const { key } = event;
+
+      if (key.length === 1) { // Allow all printable characters including punctuation
+        setUserInput((prev) => prev + key);
+
         if (startTime === null) {
           setStartTime(Date.now());
         }
-        updateWpm(userInput + event.key);
-        updateAccuracy(userInput + event.key);
+
+        updateWpm(userInput + key);
+        updateAccuracy(userInput + key);
+      } else if (key === 'Backspace') { // Handle backspace
+        setUserInput((prev) => prev.slice(0, -1));
+        updateWpm(userInput.slice(0, -1));
+        updateAccuracy(userInput.slice(0, -1));
       }
     };
 
@@ -126,8 +134,8 @@ const TypingTest = () => {
       const words = input.trim().split(/\s+/).length;
       const currentWpm = Math.round(words / elapsed);
       setWpm(currentWpm);
-      setWpmData(prev => [...prev, currentWpm]);
-      setTimeLabels(prev => [...prev, new Date().toLocaleTimeString()]);
+      setWpmData((prev) => [...prev, currentWpm]);
+      setTimeLabels((prev) => [...prev, new Date().toLocaleTimeString()]);
     }
   };
 
@@ -142,7 +150,7 @@ const TypingTest = () => {
 
     const currentAccuracy = (correctChars / input.length) * 100;
     setAccuracy(input.length === 0 ? 100 : Math.round(currentAccuracy)); // Ensure accuracy is 100% when input is empty
-    setAccuracyData(prev => [...prev, Math.round(currentAccuracy)]);
+    setAccuracyData((prev) => [...prev, Math.round(currentAccuracy)]);
   };
 
   const handleRetry = () => {
@@ -199,7 +207,7 @@ const TypingTest = () => {
                 wpmData={wpmData}
                 accuracyData={accuracyData}
                 timeLabels={timeLabels}
-              />} 
+              />}
           />
         )}
         {showExitModal && (
