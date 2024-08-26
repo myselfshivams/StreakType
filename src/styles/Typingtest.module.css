@@ -107,6 +107,9 @@
   color: #e0e0e0;
   font-family: monospace;
 
+  word-wrap: break-word; 
+  word-break: keep-all;
+
   position: relative;
 }
 
@@ -206,7 +209,8 @@
 
 .character {
   position: relative;
-  display: inline-block;
+  
+  display: inline;
 }
 
 .cursor {
