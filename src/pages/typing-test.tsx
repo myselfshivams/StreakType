@@ -29,7 +29,7 @@ const TypingTest = () => {
     const fetchStory = async () => {
       if (typeof name === 'string') {
         try {
-          const response = await fetch(`https://stories.studex.tech/api/stories?character=${name}&random=true`);
+          const response = await fetch(`https://stories.studex.tech/api/stories?character=${name}&random=true&words=180`);
           const data = await response.json();
           setStory(data.story);
         } catch (error) {
