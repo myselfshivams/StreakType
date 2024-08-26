@@ -7,6 +7,8 @@ interface StoryDisplayProps {
 }
 
 const StoryDisplay: React.FC<StoryDisplayProps> = ({ story, userInput }) => {
+  const cursorIndex = userInput.length;
+  
   return (
     <div className={styles.storyDisplay}>
       {story.split('').map((char, index) => {
@@ -15,17 +17,24 @@ const StoryDisplay: React.FC<StoryDisplayProps> = ({ story, userInput }) => {
 
         if (index < userInput.length) {
           if (char === inputChar) {
-            color = 'green'; // Correct character
+            color = 'green'; 
           } else {
-            color = 'red'; // Incorrect character
+            color = 'red'; 
           }
         } else {
-          color = ''; // Characters not yet typed
+          color = 'white'; 
         }
 
         return (
-          <span key={index} style={{ color }}>
+          <span
+            key={index}
+            className={styles.character}
+            style={{ color: color }}
+          >
             {char}
+            {index === cursorIndex && (
+              <span className={styles.cursor}></span>
+            )}
           </span>
         );
       })}

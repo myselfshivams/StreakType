@@ -51,6 +51,9 @@
   font-size: 1rem;
   line-height: 1.5;
   color: #e0e0e0;
+  font-family: monospace;
+
+  position: relative;
 }
 
 /* Input field */
@@ -140,4 +143,34 @@
 .startButton:hover {
   background: #00bcd4; /* Darker neon cyan */
   transform: scale(1.05);
+}
+
+
+
+
+
+
+.character {
+  position: relative;
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: rgb(255, 255, 255);
+  animation: blink 1s step-end infinite;
+  vertical-align: baseline;
+  margin-left: 0.5px; /* Adjust as needed for proper alignment */
+}
+
+/* Blink animation for the cursor */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
