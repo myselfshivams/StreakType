@@ -7,8 +7,8 @@ interface StoryDisplayProps {
 }
 
 const StoryDisplay: React.FC<StoryDisplayProps> = ({ story, userInput }) => {
-  const cursorIndex = userInput.length;
-  
+  const cursorIndex = userInput.length - 1; 
+
   return (
     <div className={styles.storyDisplay}>
       {story.split('').map((char, index) => {
