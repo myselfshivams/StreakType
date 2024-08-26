@@ -11,8 +11,8 @@
 
 
 .typingContainer {
-  width: 80%;
-  max-width: 900px;
+  width: 90%;
+  max-width: 950px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 8px;
@@ -102,7 +102,7 @@
   white-space: pre-wrap;
   margin-bottom: 20px;
   text-align: left;
-  font-size: 1rem;
+  font-size: 1.3rem;
   line-height: 1.5;
   color: #e0e0e0;
   font-family: monospace;
