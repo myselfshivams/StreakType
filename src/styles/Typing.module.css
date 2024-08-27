@@ -148,3 +148,95 @@
     transform: translateX(15em);
   }
   
+  /* Responsive adjustments */
+
+/* For screens larger than 1200px */
+@media (min-width: 1200px) {
+  .title {
+    font-size: 3.5rem;
+  }
+
+  .stitle {
+    font-size: 2.4rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+  }
+
+  .tryButton {
+    font-size: 25px;
+    padding: 0.7em 2.7em;
+  }
+}
+
+/* For screens between 768px and 1199px */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .stitle {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .tryButton {
+    font-size: 22px;
+    padding: 0.6em 2.5em;
+  }
+}
+
+/* For screens between 480px and 767px */
+@media (max-width: 767px) and (min-width: 480px) {
+  .title {
+    font-size: 2rem;
+    margin-top: 15%;
+  }
+
+  .stitle {
+    font-size: 1.6rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+  }
+
+  .tryButton {
+    font-size: 18px;
+    padding: 0.5em 2em;
+  }
+}
+
+/* For screens smaller than 480px */
+@media (max-width: 479px) {
+  .title {
+    font-size: 1.9rem;
+    margin-top: 10%;
+  }
+
+  .stitle {
+    font-size: 1.7rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .tryButton {
+    font-size: 30px;
+    padding: 0.4em 1.5em;
+  }
+
+  .modalContent {
+    width: 90%;
+    max-width: none;
+  }
+
+  .inputField {
+    max-width: 100%;
+  }
+}

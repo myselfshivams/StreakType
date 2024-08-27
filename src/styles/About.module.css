@@ -50,4 +50,71 @@
   }
   
 
+  /* Responsive adjustments */
+
+/* For screens larger than 1200px */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 800px;
+    padding: 20px;
+  }
+  .header {
+
+    font-size: 1.9rem;
+    margin-top: 35%;
+  }
+
+ 
+}
+
+/* For screens between 768px and 1199px */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .container {
+    max-width: 700px;
+    padding: 15px;
+  }
+  .header {
+
+    font-size: 1.9rem;
+    margin-top: 35%;
+  }
+
   
+}
+
+/* For screens between 480px and 767px */
+@media (max-width: 767px) and (min-width: 480px) {
+  .container {
+    max-width: 90%;
+    padding: 10px;
+  }
+  .header {
+
+    font-size: 1.9rem;
+    margin-top: 35%;
+  }
+
+ 
+}
+
+/* For screens smaller than 480px */
+@media (max-width: 479px) {
+  .container {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  .header {
+
+    font-size: 1.9rem;
+    margin-top: 35%;
+  }
+
+  .textt, .section h2 {
+    font-size: 0.9rem;
+  }
+
+  .mainContent, .section {
+    font-size: 0.8rem;
+  }
+}
