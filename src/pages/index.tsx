@@ -15,7 +15,15 @@ const Home = () => {
     <>
       <Head>
         <title>StreakType | Home</title>
-      </Head>
+        <link rel="icon" href="streaktype.png" />
+          <meta name="description" content="Streaktype offers a comprehensive typing test experience with features like personalized passages, random text, performance graphs, streak tracking, and certification upon completion. Enhance your typing skills and showcase your achievements with our detailed analytics." />
+          <meta name="keywords" content="typing test, typing certification, WPM graph, typing accuracy, maintain typing streak, random typing passages, personalized typing passages, typing speed, Streaktype, typing practice, studex portal, streaktype studex, streak type, typingstreak, studex typing, typing test studex, studex tech" />
+          <meta property="og:title" content="Streaktype - Typing Test and Certification" />
+          <meta property="og:description" content="Streaktype provides a dynamic typing test platform with features like personalized and random passages, performance tracking with graphs, streak maintenance, and certification. Perfect your typing skills and monitor your progress." />
+          <meta property="og:image" content="https://streaktype.studex.tech/streaktype.png" />
+          <meta property="og:url" content="https://streaktype.studex.tech" />
+          <link rel="canonical" href="https://streaktype.studex.tech" />
+        </Head>
       < Navbar />
     
       <div className={styles.container}>
