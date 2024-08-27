@@ -232,3 +232,116 @@
     opacity: 0;
   }
 }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .typingContainer {
+    max-width: 80%;
+    padding: 15px;
+  }
+
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .timer {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+
+  .storyDisplay {
+    font-size: 1.1rem;
+  }
+
+  .inputField {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .statBox {
+    margin: 10px 0;
+    width: 80%;
+  }
+
+  .exitButton, .startButton {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .typingContainer {
+    max-width: 90%;
+    padding: 10px;
+  }
+
+  .heading {
+    font-size: 1.8rem;
+  }
+
+  .timer {
+    font-size: 1rem;
+  }
+
+  .storyDisplay {
+    font-size: 0.5rem;
+  }
+
+  .inputField {
+    font-size: 0.85rem;
+  }
+
+  .statBox {
+    width: 50%;
+
+  }
+
+  .statTitle {
+    font-size: 0.61rem;
+  }
+  
+  /* Stat value */
+  .statValue {
+    font-size: 0.61rem;
+  
+  }
+
+  .exitButton, .startButton {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .typingContainer {
+    padding: 8px;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .timer {
+    font-size: 0.9rem;
+  }
+
+  .storyDisplay {
+    font-size: 0.6rem;
+  }
+
+  .inputField {
+    font-size: 0.75rem;
+  }
+
+  .exitButton, .startButton {
+    font-size: 8px;
+    padding: 5px 10px;
+    margin-top: -4%;
+  }
+}

@@ -1,22 +1,16 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-
+import { useEffect } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../context/authContext';
 import { updateStreak } from '../utils/streak';
-import useIsMobile from '../hooks/isMobile';
-import MobileWarningModal from '../components/MobileWarningModal';
 
 const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const isMobile = useIsMobile();
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     updateStreak();
@@ -50,14 +44,6 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, []);
 
-  useEffect(() => {
-    if (isMobile) {
-      setShowModal(true); 
-    } else {
-      setShowModal(false);
-    }
-  }, [isMobile]);
-
   return (
     <AuthProvider>
       <GoogleOAuthProvider clientId={clientId}>
@@ -74,7 +60,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </Head>
 
         <ToastContainer />
-        {showModal && <MobileWarningModal />} 
         <Component {...pageProps} />
       </GoogleOAuthProvider>
     </AuthProvider>

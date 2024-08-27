@@ -219,3 +219,80 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow-y: auto; 
 }
+
+/* Responsive Modal Styles */
+@media (max-width: 1200px) {
+  .modalContent {
+    max-width: 700px;
+    padding: 20px;
+  }
+
+  .graphModalContent {
+    max-width: 700px;
+    padding: 24px;
+    height: 60vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    max-width: 500px;
+    padding: 16px;
+  }
+
+  .graphModalContent {
+    max-width: 500px;
+    padding: 20px;
+    height: 70vh;
+  }
+
+  .statsContainer {
+    flex-direction: column;
+    margin: 10px 0;
+   
+  }
+
+  .statsBox {
+    margin: 10px 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    max-width: 400px;
+
+  }
+
+  .graphModalContent {
+    max-width: 400px;
+    padding: 16px;
+    height: 30vh;
+  }
+
+
+
+  .button.certificate {
+    font-size: 0.6rem;
+    padding: 1px 16px;
+   margin-left: 4%;
+  }
+
+  .button.primary {
+    font-size: 0.6rem;
+    padding: 1px 16px;
+   margin-left: 4%;
+  }
+
+  .button.secondary {
+    font-size: 0.6rem;
+    padding: 1px 16px;
+   margin-left: 4%;
+  }
+
+  .button.error {
+    font-size: 0.6rem;
+    padding: 1px 16px;
+   margin-left: 4%;
+  }
+}
