@@ -104,14 +104,14 @@ const TypingTest = () => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const { key } = event;
-
+  
       if (key.length === 1) { // Allow all printable characters including punctuation
         setUserInput((prev) => prev + key);
-
+        
         if (startTime === null) {
           setStartTime(Date.now());
         }
-
+        
         updateWpm(userInput + key);
         updateAccuracy(userInput + key);
       } else if (key === 'Backspace') { // Handle backspace
@@ -120,13 +120,23 @@ const TypingTest = () => {
         updateAccuracy(userInput.slice(0, -1));
       }
     };
-
+  
+    const handleTouchStart = (event: TouchEvent) => {
+      // Simulate keyboard input for touch events
+      const touch = event.touches[0];
+      const simulatedKey = String.fromCharCode(touch.identifier); // Example touch handling
+      setUserInput((prev) => prev + simulatedKey);
+    };
+  
     window.addEventListener('keydown', handleKeyDown);
-
+    window.addEventListener('touchstart', handleTouchStart);
+  
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('touchstart', handleTouchStart);
     };
   }, [userInput, startTime]);
+  
 
   const updateWpm = (input: string) => {
     if (startTime) {
