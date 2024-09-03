@@ -33,7 +33,7 @@ const TypingTest = () => {
           const data = await response.json();
           setStory(data.story);
         } catch (error) {
-          console.error('Error fetching story:', error);
+          
         }
       }
     };

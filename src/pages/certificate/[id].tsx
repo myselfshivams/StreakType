@@ -20,11 +20,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       .single();
 
     if (error || !data) {
-      console.log(`Document not found for unique_id: ${id}`);
+   
       return { notFound: true };
     }
 
-    console.log(`Fetched data for unique_id: ${id}`, data);
+
 
     const formattedDate = new Date(data.date).toLocaleDateString();
 
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error('Error fetching certificate data:', error);
+  
     return { notFound: true };
   }
 };

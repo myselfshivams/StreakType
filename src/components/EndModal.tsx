@@ -21,7 +21,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
   const [ipAddress, setIpAddress] = useState<string>('Unknown');
 
   useEffect(() => {
-    // Fetch IP address and city information
+ 
     const fetchIpAndCity = async () => {
       try {
         const response = await fetch('https://ipinfo.io/json?token=d52b83005e79b0');
@@ -29,7 +29,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
         setIpAddress(data.ip);
         setCity(data.city);
       } catch (error) {
-        console.error('Error fetching IP and city information:', error);
+     
       }
     };
 
@@ -49,7 +49,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
     toast.warn("Redirecting to home...");
     if (document.fullscreenElement) {
       document.exitFullscreen().catch((err) => {
-        console.error("Failed to exit full screen:", err);
+  
       });
     }
     window.location.href = '/';
@@ -81,7 +81,7 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
         const battery = await (navigator as any).getBattery();
         batteryLevel = (battery.level * 100).toFixed(0) + '%';
       } catch (error) {
-        console.error("Error fetching battery level:", error);
+     
       }
     }
 
@@ -110,12 +110,12 @@ const EndModal: React.FC<ModalProps> = ({ name, wpm, accuracy, onRetry, onExit, 
       }
 
       toast.success("Generating certificate...");
-      console.log('Certificate data stored with ID:', documentId);
+   
 
       window.location.href = `/certificate/${documentId}`;
     } catch (error) {
       toast.error("Failed to generate certificate.");
-      console.error('Error storing certificate data:', error);
+   
     }
   };
 

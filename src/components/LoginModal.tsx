@@ -24,11 +24,11 @@ const Modal: FC<ModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleGoogleSuccess = (response: CredentialResponse) => {
-    console.log('Google Sign-In success:', response);
+    // console.log('Google Sign-In success:', response);
   };
 
   const handleGoogleError = (error: any) => {
-    console.log('Google Sign-In error:', error);
+    // console.log('Google Sign-In error:', error);
     toast.error('Google Sign-In failed. Please try again later.');
   };
 

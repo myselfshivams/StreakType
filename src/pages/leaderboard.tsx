@@ -28,15 +28,15 @@ const Leaderboard: React.FC = () => {
 
   useEffect(() => {
     const fetchLeaderboardData = async () => {
-      console.log('Fetching data from Supabase...');
+    
       
       const oneMonthAgo = new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString();
-      console.log('Date filter (one month ago):', oneMonthAgo);
+  
 
       try {
         const { data: responseData, error } = await supabase
           .from('certificates')  
-          .select('name, accuracy, wpm')  // Select only the necessary columns
+          .select('name, accuracy, wpm')  
           .gte('wpm', 0)
           .lte('wpm', 100)
           .gte('date', oneMonthAgo) 
@@ -44,13 +44,13 @@ const Leaderboard: React.FC = () => {
           .order('accuracy', { ascending: false });  
 
         if (error) {
-          console.error('Error fetching data:', error);
+  
           return;
         }
 
-        console.log('Fetched data:', responseData);
+
         if (responseData.length === 0) {
-          console.log('No records found matching the criteria.');
+     
         }
 
         const rankedData = responseData.map((item) => ({
@@ -78,7 +78,7 @@ const Leaderboard: React.FC = () => {
         
         setData(uniqueData || []);
       } catch (error) {
-        console.error('Unexpected error:', error);
+
       } finally {
         setLoading(false);
       }
